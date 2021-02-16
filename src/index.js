@@ -1,16 +1,19 @@
 import { CssBaseline, ThemeProvider } from "@material-ui/core";
 
-import App from './App';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import mainTheme from "./theme";
+import React from "react";
+import ReactDOM from "react-dom";
+import mainTheme from "theme";
+import { BrowserRouter } from "react-router-dom";
+import App from "./App";
 
 ReactDOM.render(
   <React.StrictMode>
     <CssBaseline />
     <ThemeProvider theme={mainTheme}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root"),
 );

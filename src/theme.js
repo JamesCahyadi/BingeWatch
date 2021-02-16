@@ -1,16 +1,13 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme } from "@material-ui/core/styles";
 
 const mainTheme = createMuiTheme({
   palette: {
     primary: {
-      main: "#EBEBEB"
+      main: "#005776",
     },
     secondary: {
-      main: "#005776"
-    }
-  },
-  typography: {
-    fontFamily: "Roboto",
+      main: "#EBEBEB",
+    },
   },
 });
 
