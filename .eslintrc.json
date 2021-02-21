@@ -20,6 +20,9 @@
     ],
     "rules": {
         "no-unused-vars": "warn",
+        "import/prefer-default-export": "warn",
+        "arrow-body-style": "warn",
+        "operator-linebreak": "off",
         "quotes": [
             "error",
             "double"
