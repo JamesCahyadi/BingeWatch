@@ -3,12 +3,12 @@ import React from "react";
 import useFetch from "hooks/useFetch";
 
 const Home = () => {
-  const movies = useFetch("http://localhost:8080/movies");
-
+  const { data, isLoading, error } = useFetch("http://localhost:8080/movies");
   return (
     <div>
-      <div>d</div>
-      {movies && <MovieList movies={movies} />}
+      {error && error}
+      {isLoading && <div>Loading...</div>}
+      {data && <MovieList movies={data} />}
     </div>
   );
 };

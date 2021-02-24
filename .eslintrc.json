@@ -23,6 +23,7 @@
         "import/prefer-default-export": "warn",
         "arrow-body-style": "warn",
         "operator-linebreak": "off",
+        "no-plusplus": "off",
         "quotes": [
             "error",
             "double"

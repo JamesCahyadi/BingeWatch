@@ -1,3 +1,3 @@
 import * as constants from "constants/urls";
 
-export const getMoviePoster = (movieId) => constants.TMDB_MOVIE_POSTER_URL + movieId;
+export const getMoviePoster = (posterPath) => constants.TMDB_MOVIE_POSTER_URL + posterPath;

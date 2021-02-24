@@ -22,11 +22,11 @@ const useFetch = (url) => {
       .catch((err) => {
         console.error("Problem with your fetch operation:", err);
         setIsLoading(false);
-        setError(err);
+        setError(err.message);
       });
   }, [url]);
 
-  return data;
+  return { data, isLoading, error };
 };
 
 export default useFetch;
