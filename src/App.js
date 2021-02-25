@@ -1,8 +1,9 @@
-import Navbar from "components/Navbar";
-import React from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
+
 import Home from "pages/Home";
+import Navbar from "components/Navbar";
 import Profile from "pages/Profile";
+import React from "react";
 
 function App() {
   return (
