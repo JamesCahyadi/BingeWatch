@@ -1,4 +1,4 @@
-import MovieList from "components/MovieList";
+import MovieList from "components/MovieList/MovieList";
 import React from "react";
 import useFetch from "hooks/useFetch";
 

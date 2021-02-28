@@ -1,7 +1,7 @@
 import { Redirect, Route, Switch } from "react-router-dom";
 
 import Home from "pages/Home";
-import Navbar from "components/Navbar";
+import Navbar from "components/Navbar/Navbar";
 import Profile from "pages/Profile";
 import React from "react";
 
@@ -16,7 +16,7 @@ function App() {
         <Route exact path="/movies">
           <Home />
         </Route>
-        <Route exact path="/profile">
+        <Route exact path="/profile/:id">
           <Profile />
         </Route>
       </Switch>
