@@ -8,7 +8,7 @@ const MovieList = ({ movies }) => {
   return (
     <div className={classes.movieListContainer}>
       {movies.map((movie, idx) => (
-        <MovieCard key={idx + movie.title} movie={movie} rank={idx + 1} />
+        <MovieCard key={idx} movie={movie} rank={idx + 1} />
       ))}
     </div>
   );

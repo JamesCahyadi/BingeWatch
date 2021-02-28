@@ -13,3 +13,5 @@ export const getMoviePoster = (posterPath) => {
 
   return posterUrl;
 };
+
+export const getImdbUrl = (imdbId) => constants.IMDB_MOVIE_URL + imdbId;

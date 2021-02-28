@@ -9,6 +9,16 @@ const mainTheme = createMuiTheme({
       main: "#EBEBEB",
     },
   },
+  overrides: {
+    MuiIconButton: {
+      root: {
+        padding: "0",
+        "&:hover": {
+          backgroundColor: "transparent",
+        },
+      },
+    },
+  },
 });
 
 export default mainTheme;

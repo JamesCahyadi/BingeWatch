@@ -8,9 +8,10 @@ import useFetch from "hooks/useFetch";
 const Profile = () => {
   const { user, isAuthenticated, isLoading: isAuthLoading } = useAuth0();
   const { data: movies, isLoading: isFetchLoading, error } = useFetch(
-    "http://localhost:8080/profile/google-oauth2|7C110432547213216868876",
+    "http://localhost:8080/profile/google-oauth2|110432547213216868876",
   );
 
+  console.log(movies);
   if (isAuthLoading || isFetchLoading) {
     return <div>Loading ...</div>;
   }
@@ -18,8 +19,6 @@ const Profile = () => {
   if (error) {
     return <div>Error</div>;
   }
-
-  console.log(movies);
 
   return (
     isAuthenticated && (

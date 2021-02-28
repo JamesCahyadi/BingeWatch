@@ -5,16 +5,19 @@ const {
   TMDB_WEEKLY_TRENDING_URL,
   TMDB_VISIT_IMDB_URL,
 } = require("../constants/urls");
-const { getUrlWithKey, getUrlObjWithKey } = require("../utils/urlHelpers");
+const { createUrl } = require("../utils/urlHelpers");
 
 const router = express.Router();
 
 router.get("/movies", async (req, res) => {
-  const weeklyTrendingURL = getUrlWithKey(TMDB_WEEKLY_TRENDING_URL);
-  const dailyTrendingURL = getUrlWithKey(TMDB_DAILY_TRENDING_URL);
+  const weeklyTrendingURL = createUrl(TMDB_WEEKLY_TRENDING_URL);
+  const dailyTrendingURL = createUrl(TMDB_DAILY_TRENDING_URL);
 
+  console.log(dailyTrendingURL);
   const dailyTrendingData = await fetchData(dailyTrendingURL);
   const weeklyTrendingData = await fetchData(weeklyTrendingURL);
+
+  console.log(dailyTrendingData);
 
   // res.send({ dailyTrendingData, weeklyTrendingData });
   res.send(dailyTrendingData.results);
