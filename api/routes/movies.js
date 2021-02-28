@@ -13,11 +13,8 @@ router.get("/movies", async (req, res) => {
   const weeklyTrendingURL = createUrl(TMDB_WEEKLY_TRENDING_URL);
   const dailyTrendingURL = createUrl(TMDB_DAILY_TRENDING_URL);
 
-  console.log(dailyTrendingURL);
   const dailyTrendingData = await fetchData(dailyTrendingURL);
   const weeklyTrendingData = await fetchData(weeklyTrendingURL);
-
-  console.log(dailyTrendingData);
 
   // res.send({ dailyTrendingData, weeklyTrendingData });
   res.send(dailyTrendingData.results);
