@@ -8,6 +8,9 @@ const mainTheme = createMuiTheme({
     secondary: {
       main: "#EBEBEB",
     },
+    tertiary: {
+      main: "#A9CAD6",
+    },
   },
   overrides: {
     MuiIconButton: {

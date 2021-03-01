@@ -11,25 +11,20 @@ import imdbLogo from "assets/imdb.png";
 import useStyles from "components/MovieCard/MovieCardStyles";
 
 const MovieCard = ({ movie, rank }) => {
-  const [isHover, setIsHover] = useState(false);
   const classes = useStyles();
 
   return (
-    <Card
-      onMouseEnter={() => setIsHover(true)}
-      onMouseLeave={() => setIsHover(false)}
-      raised={isHover}
-      className={classes.movieCard}
-    >
+    <Card className={classes.movieCard}>
       <CardContent>
         <Badge
-          color="secondary"
-          overlap="circle"
+          color="error"
+          overlap="rectangle"
           badgeContent={rank}
           anchorOrigin={{
             vertical: "bottom",
-            horizontal: "left",
+            horizontal: "right",
           }}
+          className={classes.rankBadge}
         >
           <img className={classes.poster} src={getMoviePoster(movie.poster_path)} alt="poster" />
         </Badge>

@@ -5,12 +5,18 @@ const useStyles = makeStyles((theme) => ({
     width: "200px",
     overflow: "visible",
     boxSizing: "border-box",
-    borderRadius: "2px",
-    border: "linear-gradient(to bottom right, #ff3cac, #562b7c, #2b86c5);",
+    borderRadius: "0",
+    boxShadow: "0",
+    "&:hover": {
+      background: theme.palette.tertiary.main,
+    },
   },
   poster: {
     height: "225px",
     width: "150px",
+  },
+  rankBadge: {
+    color: "red",
   },
   movieActionIcon: {
     height: "30px",
