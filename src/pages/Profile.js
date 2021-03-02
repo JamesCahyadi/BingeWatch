@@ -1,4 +1,5 @@
-import { Movie } from "@material-ui/icons";
+import * as constants from "constants/movieCardIcons";
+
 import MovieList from "components/MovieList/MovieList";
 import ProfileCard from "components/ProfileCard";
 import React from "react";
@@ -24,7 +25,7 @@ const Profile = () => {
     isAuthenticated && (
       <div>
         <ProfileCard user={user} />
-        <MovieList movies={movies} />
+        <MovieList movies={movies} title="Favourites" />
       </div>
     )
   );

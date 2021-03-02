@@ -1,17 +1,29 @@
-import React, { useState } from "react";
-import { getImdbUrl, getMoviePoster } from "utils/urlHelpers";
+import * as constants from "constants/movieCardIcons";
 
-import Avatar from "@material-ui/core/Avatar";
+import React, { useEffect, useState } from "react";
+import { getCurrentPage, getMoviePoster } from "utils/urlHelpers";
+
 import Badge from "@material-ui/core/Badge";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import IconButton from "@material-ui/core/IconButton";
-import imdbLogo from "assets/imdb.png";
+import MovieCardIcons from "components/MovieCardIcons";
+import { useLocation } from "react-router-dom";
 import useStyles from "components/MovieCard/MovieCardStyles";
 
 const MovieCard = ({ movie, rank }) => {
   const classes = useStyles();
+  const location = useLocation();
+  const [icons, setIcons] = useState(constants.homeMovieIcons);
+
+  useEffect(() => {
+    const curPage = getCurrentPage(location);
+    if (curPage === "profile") {
+      setIcons(constants.profileMovieIcons);
+    } else {
+      setIcons(constants.homeMovieIcons);
+    }
+  }, [location]);
 
   return (
     <Card className={classes.movieCard}>
@@ -28,17 +40,10 @@ const MovieCard = ({ movie, rank }) => {
         >
           <img className={classes.poster} src={getMoviePoster(movie.poster_path)} alt="poster" />
         </Badge>
-        <CardActions>
-          <IconButton href={getImdbUrl(movie.imdb_id)} target="_blank">
-            <Avatar
-              className={classes.movieActionIcon}
-              variant="rounded"
-              alt="imdb"
-              src={imdbLogo}
-            />
-          </IconButton>
+        <CardActions className={classes.movieCardIconsContainer}>
+          <MovieCardIcons movie={movie} icons={icons} />
         </CardActions>
-        <div>{movie.title || movie.name}</div>
+        <div className={classes.movieTitle}>{movie.title || movie.name}</div>
         <div>{movie.first_air_date || movie.release_date}</div>
         <div>{movie.vote_average}</div>
       </CardContent>

@@ -8,7 +8,7 @@ const Home = () => {
     <div>
       {error && error}
       {isLoading && <div>Loading...</div>}
-      {data && <MovieList movies={data} />}
+      {data && <MovieList movies={data} title="Daily Trending" />}
     </div>
   );
 };

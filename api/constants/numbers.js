@@ -1,4 +1,4 @@
-const MAX_FAVOURITE_MOVIES = 10;
+const MAX_FAVOURITE_MOVIES = 15;
 
 module.exports = {
   MAX_FAVOURITE_MOVIES,

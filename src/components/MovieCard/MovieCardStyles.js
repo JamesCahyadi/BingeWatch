@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: "visible",
     boxSizing: "border-box",
     borderRadius: "0",
-    boxShadow: "0",
+    boxShadow: "none",
     "&:hover": {
       background: theme.palette.tertiary.main,
     },
@@ -18,9 +18,12 @@ const useStyles = makeStyles((theme) => ({
   rankBadge: {
     color: "red",
   },
-  movieActionIcon: {
-    height: "30px",
-    width: "30px",
+  movieCardIconsContainer: {
+    display: "flex",
+    justifyContent: "center",
+  },
+  movieTitle: {
+    fontWeight: "bold",
   },
 }));
 

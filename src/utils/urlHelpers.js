@@ -15,3 +15,16 @@ export const getMoviePoster = (posterPath) => {
 };
 
 export const getImdbUrl = (imdbId) => constants.IMDB_MOVIE_URL + imdbId;
+
+export const getCurrentPage = (location) => {
+  const url = location.pathname;
+  let page;
+
+  if (url.indexOf("profile") === -1) {
+    page = "home";
+  } else {
+    page = "profile";
+  }
+
+  return page;
+};
