@@ -4,6 +4,7 @@ import useFetch from "hooks/useFetch";
 
 const Home = () => {
   const { data, isLoading, error } = useFetch("http://localhost:8080/movies");
+  console.log(data);
   return (
     <div>
       {error && error}

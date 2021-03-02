@@ -30,17 +30,21 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: "5px",
       background: theme.palette.primary.main,
     },
-    // "&::before": {
-    //   content: "''",
-    //   display: "block",
-    //   position: "absolute",
-    //   top: "0",
-    //   right: "0",
-    //   height: "100%",
-    //   paddingRight: "10%",
-    //   pointerEvents: "none",
-    //   background: "linear-gradient(to right, rgba(255,255,255,0), red 85%)",
-    // },
+  },
+  fadeLeft: {
+    "&::before": {
+      content: "''",
+      display: "block",
+      position: "absolute",
+      top: "0",
+      left: "0",
+      height: "100%",
+      paddingLeft: "10%",
+      pointerEvents: "none",
+      background: "linear-gradient(to left, rgba(255,255,255,0), #ffffff 100%)",
+    },
+  },
+  fadeRight: {
     "&::after": {
       content: "''",
       zIndex: "1",
