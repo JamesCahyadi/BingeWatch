@@ -14,32 +14,43 @@ import useStyles from "components/MovieCard/MovieCardStyles";
 const MovieCard = ({ movie, rank }) => {
   const classes = useStyles();
   const location = useLocation();
+
+  const pages = ["home", "profile"];
   const [icons, setIcons] = useState(constants.homeMovieIcons);
+  const [curPage, setCurPage] = useState(pages[0]);
 
   useEffect(() => {
-    const curPage = getCurrentPage(location);
-    if (curPage === "profile") {
-      setIcons(constants.profileMovieIcons);
-    } else {
+    setCurPage(getCurrentPage(location));
+    if (curPage === pages[0]) {
       setIcons(constants.homeMovieIcons);
+    } else {
+      setIcons(constants.profileMovieIcons);
     }
   }, [location]);
+
+  const poster = (
+    <img className={classes.poster} src={getMoviePoster(movie.poster_path)} alt="poster" />
+  );
 
   return (
     <Card className={classes.movieCard}>
       <CardContent>
-        <Badge
-          color="error"
-          overlap="rectangle"
-          badgeContent={rank}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "right",
-          }}
-          className={classes.rankBadge}
-        >
-          <img className={classes.poster} src={getMoviePoster(movie.poster_path)} alt="poster" />
-        </Badge>
+        {curPage === pages[1] ? (
+          <Badge
+            color="error"
+            overlap="rectangle"
+            badgeContent={rank}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "right",
+            }}
+            className={classes.rankBadge}
+          >
+            {poster}
+          </Badge>
+        ) : (
+          <>{poster}</>
+        )}
         <CardActions className={classes.movieCardIconsContainer}>
           <MovieCardIcons movie={movie} icons={icons} />
         </CardActions>

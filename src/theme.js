@@ -21,6 +21,14 @@ const mainTheme = createMuiTheme({
         },
       },
     },
+    MuiTooltip: {
+      tooltip: {
+        backgroundColor: "#005776",
+      },
+      arrow: {
+        color: "#005776",
+      },
+    },
   },
 });
 
