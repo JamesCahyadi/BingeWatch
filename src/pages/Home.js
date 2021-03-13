@@ -4,15 +4,22 @@ import useFetch from "hooks/useFetch";
 
 const Home = () => {
   const { data, isLoading, error } = useFetch("http://localhost:8080/movies");
-  console.log(data);
+
+  let dailyTrendingMoviesWithImdb;
+  let weeklyTrendingMoviesWithImdb;
+  if (data) {
+    ({ dailyTrendingMoviesWithImdb } = data);
+    ({ weeklyTrendingMoviesWithImdb } = data);
+  }
+
   return (
     <div>
       {error && error}
       {isLoading && <div>Loading...</div>}
       {data && (
         <>
-          <MovieList movies={data} title="Daily Trending" />
-          <MovieList movies={data} title="Daily Trending" />
+          <MovieList movies={dailyTrendingMoviesWithImdb} title="Daily Trending" />
+          <MovieList movies={weeklyTrendingMoviesWithImdb} title="Weekly Trending" />
         </>
       )}
     </div>

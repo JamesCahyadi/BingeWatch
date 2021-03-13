@@ -21,12 +21,14 @@ export default function Navbar() {
     history.push(path);
   };
 
+  const goToHome = () => history.push("/");
+
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography variant="h6" className={classes.title}>
-          Navbar
-        </Typography>
+        <IconButton className={classes.title} onClick={goToHome} color="secondary">
+          <Typography variant="h6">Navbar</Typography>
+        </IconButton>
         <IconButton
           className={classes.profileIconContainer}
           classes={{ label: classes.label }}

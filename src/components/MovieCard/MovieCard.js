@@ -26,7 +26,7 @@ const MovieCard = ({ movie, rank }) => {
     } else {
       setIcons(constants.profileMovieIcons);
     }
-  }, [location]);
+  }, [curPage]);
 
   const poster = (
     <img className={classes.poster} src={getMoviePoster(movie.poster_path)} alt="poster" />
