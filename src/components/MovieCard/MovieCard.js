@@ -11,7 +11,7 @@ import MovieCardIcons from "components/MovieCardIcons";
 import { useLocation } from "react-router-dom";
 import useStyles from "components/MovieCard/MovieCardStyles";
 
-const MovieCard = ({ movie, rank }) => {
+const MovieCard = ({ movie, rank, isDraggable }) => {
   const classes = useStyles();
   const location = useLocation();
 
@@ -51,12 +51,12 @@ const MovieCard = ({ movie, rank }) => {
         ) : (
           <>{poster}</>
         )}
+        <div>{movie.vote_average}</div>
         <CardActions className={classes.movieCardIconsContainer}>
           <MovieCardIcons movie={movie} icons={icons} />
         </CardActions>
         <div className={classes.movieTitle}>{movie.title || movie.name}</div>
         <div>{movie.first_air_date || movie.release_date}</div>
-        <div>{movie.vote_average}</div>
       </CardContent>
     </Card>
   );

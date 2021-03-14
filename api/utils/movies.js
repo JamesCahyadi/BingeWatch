@@ -1,3 +1,4 @@
+const { v4: uuid } = require("uuid");
 const { MAX_FAVOURITE_MOVIES } = require("../constants/numbers");
 const { DEFAULT_MOVIE } = require("../constants/defaults");
 const { TMDB_SINGLE_MOVIE_ID_SEARCH_URL } = require("../constants/urls");
@@ -8,30 +9,39 @@ const { createUrl } = require("./urlHelpers");
 // valid movies don't have a success property
 const filterOutInvalidMovies = (movies) => movies.filter((movie) => movie.success !== false);
 
-const extractMovieIds = (movies) =>
-  movies.map((movie) => {
-    const { id } = movie;
-    return { id };
-  });
+const extractMovieIds = (movies) => movies.map((movie) => ({ id: movie.id }));
 
-const getSingleMovieData = async (movieIds) => {
-  const moviePromises = movieIds.map((movie) => {
+const appendSortOrder = (movies, movieObj) =>
+  movies.map((movie, idx) => ({ ...movie, sortOrder: movieObj[idx].sort_order }));
+
+const getSingleMovieData = async (movieObj) => {
+  const moviePromises = movieObj.map((movie) => {
     const { id } = movie;
     const singleMovieUrl = createUrl(TMDB_SINGLE_MOVIE_ID_SEARCH_URL, [id]);
     return fetchData(singleMovieUrl);
   });
 
   const movies = await Promise.all(moviePromises);
-  return filterOutInvalidMovies(movies);
+  const filteredMovies = filterOutInvalidMovies(movies);
+  const filteredMoviesWithSortOrder = appendSortOrder(filteredMovies, movieObj);
+  return filteredMoviesWithSortOrder;
 };
 
-const populateMovies = async (movieIds) => {
-  const movies = await getSingleMovieData(movieIds);
-  while (movies.length < MAX_FAVOURITE_MOVIES) {
-    movies.push(DEFAULT_MOVIE);
+const populateMovies = async (movieObj) => {
+  const movies = await getSingleMovieData(movieObj);
+  const sortedMovies = [];
+  let moviesIdx = 0;
+
+  for (let i = 1; i <= MAX_FAVOURITE_MOVIES; i++) {
+    if (movies[moviesIdx] && movies[moviesIdx].sortOrder === i) {
+      sortedMovies.push(movies[moviesIdx]);
+      moviesIdx++;
+    } else {
+      sortedMovies.push({ ...DEFAULT_MOVIE, sortOrder: i, id: uuid() });
+    }
   }
 
-  return movies;
+  return sortedMovies;
 };
 
 module.exports = {

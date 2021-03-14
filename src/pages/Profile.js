@@ -9,7 +9,7 @@ import useFetch from "hooks/useFetch";
 const Profile = () => {
   const { user, isAuthenticated, isLoading: isAuthLoading } = useAuth0();
   const { data: movies, isLoading: isFetchLoading, error } = useFetch(
-    "http://localhost:8080/profile/google-oauth2|110432547213216868876",
+    "/profile/google-oauth2|110432547213216868876",
   );
 
   console.log(movies);

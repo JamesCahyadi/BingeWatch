@@ -3,7 +3,7 @@ import React from "react";
 import useFetch from "hooks/useFetch";
 
 const Home = () => {
-  const { data, isLoading, error } = useFetch("http://localhost:8080/movies");
+  const { data, isLoading, error } = useFetch("/movies");
 
   let dailyTrendingMoviesWithImdb;
   let weeklyTrendingMoviesWithImdb;
