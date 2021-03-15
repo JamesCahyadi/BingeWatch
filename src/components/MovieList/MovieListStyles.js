@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
   fadeLeft: {
     "&::before": {
       content: "''",
+      zIndex: "100",
       display: "block",
       position: "absolute",
       top: "0",
@@ -46,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   fadeRight: {
     "&::after": {
       content: "''",
-      zIndex: "1",
+      zIndex: "100",
       display: "block",
       position: "absolute",
       top: "0",

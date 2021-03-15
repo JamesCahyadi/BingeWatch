@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import MovieCard from "components/MovieCard";
 import { getCurrentPage } from "utils/urlHelpers";

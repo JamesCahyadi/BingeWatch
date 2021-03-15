@@ -8,10 +8,11 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import MovieCardIcons from "components/MovieCardIcons";
+import PercentBar from "components/PercentBar";
 import { useLocation } from "react-router-dom";
 import useStyles from "components/MovieCard/MovieCardStyles";
 
-const MovieCard = ({ movie, rank, isDraggable }) => {
+const MovieCard = ({ movie, rank }) => {
   const classes = useStyles();
   const location = useLocation();
 
@@ -35,23 +36,19 @@ const MovieCard = ({ movie, rank, isDraggable }) => {
   return (
     <Card className={classes.movieCard}>
       <CardContent>
-        {curPage === pages[1] ? (
-          <Badge
-            color="error"
-            overlap="rectangle"
-            badgeContent={rank}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "right",
-            }}
-            className={classes.rankBadge}
-          >
-            {poster}
-          </Badge>
-        ) : (
-          <>{poster}</>
-        )}
-        <div>{movie.vote_average}</div>
+        <Badge
+          color="primary"
+          overlap="rectangle"
+          badgeContent={rank}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          className={classes.rankBadge}
+        >
+          {poster}
+        </Badge>
+        <PercentBar rating={movie.vote_average} />
         <CardActions className={classes.movieCardIconsContainer}>
           <MovieCardIcons movie={movie} icons={icons} />
         </CardActions>

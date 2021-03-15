@@ -7,13 +7,13 @@ const useStyles = makeStyles((theme) => ({
     boxSizing: "border-box",
     borderRadius: "0",
     boxShadow: "none",
-    "&:hover": {
-      background: theme.palette.tertiary.main,
-    },
+    // "&:hover": {
+    //   background: theme.palette.tertiary.main,
+    // },
   },
   poster: {
     height: "225px",
-    width: "150px",
+    width: "168px",
   },
   rankBadge: {
     color: "red",

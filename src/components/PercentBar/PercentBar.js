@@ -1,26 +1,24 @@
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
 import React from "react";
-import Typography from "@material-ui/core/Typography";
+import { getRatingColour } from "utils/colourHelpers";
+import useStyles from "./PercentBarStyles";
 
-const PercentBar = ({ user }) => {
-  console.log(user);
+const PercentBar = ({ rating }) => {
+  const classes = useStyles();
+  const colour = getRatingColour(rating);
+  const percentRating = rating * 10;
+
+  const barStyles = {
+    "--width": `${percentRating}%`,
+    "--colour": colour,
+  };
+
   return (
-    <div>
-      <Card>
-        <CardContent>
-          <Avatar alt={user.name} src={user.picture} />
-          <Typography>{user.name || user.nickname}</Typography>
-          {user.sub}
-        </CardContent>
-        <CardActions>
-          <Button>Connect</Button>
-          <Button>0 connections</Button>
-        </CardActions>
-      </Card>
+    <div className={classes.percentBarContainer}>
+      <div className={classes.ratingNumber}>{rating}</div>
+      <div className={classes.ratingBarContainer}>
+        <div className={classes.ratingBar} style={barStyles} />
+        <div className={classes.ratingBarCapacity} />
+      </div>
     </div>
   );
 };
