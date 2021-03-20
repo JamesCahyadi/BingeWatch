@@ -34,8 +34,6 @@ const Home = () => {
     setIsShowingDrawer(!isShowingDrawer);
   };
 
-  console.log(notificationData);
-
   return (
     <div>
       {error && error}
