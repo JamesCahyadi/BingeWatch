@@ -14,12 +14,14 @@ const extractMovieIds = (movies) => movies.map((movie) => ({ id: movie.id }));
 const appendSortOrder = (movies, movieObj) =>
   movies.map((movie, idx) => ({ ...movie, sortOrder: movieObj[idx].sort_order }));
 
-const getSingleMovieData = async (movieObj) => {
-  const moviePromises = movieObj.map((movie) => {
-    const { id } = movie;
-    const singleMovieUrl = createUrl(TMDB_SINGLE_MOVIE_ID_SEARCH_URL, [id]);
-    return fetchData(singleMovieUrl);
-  });
+const getSingleMovieData = async (movie) => {
+  const { id } = movie;
+  const singleMovieUrl = createUrl(TMDB_SINGLE_MOVIE_ID_SEARCH_URL, [id]);
+  return fetchData(singleMovieUrl);
+};
+
+const getFormattedMovies = async (movieObj) => {
+  const moviePromises = movieObj.map(getSingleMovieData);
 
   const movies = await Promise.all(moviePromises);
   const filteredMovies = filterOutInvalidMovies(movies);
@@ -27,8 +29,10 @@ const getSingleMovieData = async (movieObj) => {
   return filteredMoviesWithSortOrder;
 };
 
+const generateDefaultMovie = (sortOrder) => ({ ...DEFAULT_MOVIE, sortOrder, id: uuid() });
+
 const populateMovies = async (movieObj) => {
-  const movies = await getSingleMovieData(movieObj);
+  const movies = await getFormattedMovies(movieObj);
   const sortedMovies = [];
   let moviesIdx = 0;
 
@@ -37,7 +41,7 @@ const populateMovies = async (movieObj) => {
       sortedMovies.push(movies[moviesIdx]);
       moviesIdx++;
     } else {
-      sortedMovies.push({ ...DEFAULT_MOVIE, sortOrder: i, id: uuid() });
+      sortedMovies.push(generateDefaultMovie(i));
     }
   }
 
@@ -46,6 +50,8 @@ const populateMovies = async (movieObj) => {
 
 module.exports = {
   extractMovieIds,
-  getSingleMovieData,
+  getFormattedMovies,
   populateMovies,
+  generateDefaultMovie,
+  getSingleMovieData,
 };

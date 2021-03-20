@@ -1,37 +1,23 @@
-import * as constants from "constants/movieCardIcons";
-
-import React, { useEffect, useState } from "react";
-import { getCurrentPage, getMoviePoster } from "utils/urlHelpers";
-
 import Badge from "@material-ui/core/Badge";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import MovieCardIcons from "components/MovieCardIcons";
 import PercentBar from "components/PercentBar";
-import { useLocation } from "react-router-dom";
+import React from "react";
+import { getMoviePoster } from "utils/urlHelpers";
 import useStyles from "components/MovieCard/MovieCardStyles";
 
-const MovieCard = ({ movie, rank }) => {
+const MovieCard = ({
+  movie,
+  rank,
+  icons,
+  setNotificationData,
+  handleInsert,
+  handleDelete,
+  toggleDrawer,
+}) => {
   const classes = useStyles();
-  const location = useLocation();
-
-  const pages = ["home", "profile"];
-  const [icons, setIcons] = useState(constants.homeMovieIcons);
-  const [curPage, setCurPage] = useState(pages[0]);
-
-  useEffect(() => {
-    setCurPage(getCurrentPage(location));
-    if (curPage === pages[0]) {
-      setIcons(constants.homeMovieIcons);
-    } else {
-      setIcons(constants.profileMovieIcons);
-    }
-  }, [curPage]);
-
-  const poster = (
-    <img className={classes.poster} src={getMoviePoster(movie.poster_path)} alt="poster" />
-  );
 
   return (
     <Card className={classes.movieCard}>
@@ -46,11 +32,19 @@ const MovieCard = ({ movie, rank }) => {
           }}
           className={classes.rankBadge}
         >
-          {poster}
+          <img className={classes.poster} src={getMoviePoster(movie.poster_path)} alt="poster" />
         </Badge>
         <PercentBar rating={movie.vote_average} />
         <CardActions className={classes.movieCardIconsContainer}>
-          <MovieCardIcons movie={movie} icons={icons} />
+          <MovieCardIcons
+            movie={movie}
+            rank={rank}
+            icons={icons}
+            setNotificationData={setNotificationData}
+            handleDelete={handleDelete}
+            toggleDrawer={toggleDrawer}
+            handleInsert={handleInsert}
+          />
         </CardActions>
         <div className={classes.movieTitle}>{movie.title || movie.name}</div>
         <div>{movie.first_air_date || movie.release_date}</div>

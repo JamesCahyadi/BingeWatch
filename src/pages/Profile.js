@@ -1,4 +1,4 @@
-import * as constants from "constants/movieCardIcons";
+import * as movieCardIcons from "constants/movieCardIcons";
 
 import MovieList from "components/MovieList/MovieList";
 import ProfileCard from "components/ProfileCard";
@@ -12,7 +12,6 @@ const Profile = () => {
     "/profile/google-oauth2|110432547213216868876",
   );
 
-  console.log(movies);
   if (isAuthLoading || isFetchLoading) {
     return <div>Loading ...</div>;
   }
@@ -25,7 +24,12 @@ const Profile = () => {
     isAuthenticated && (
       <div>
         <ProfileCard user={user} />
-        <MovieList movies={movies} title="Favourites" />
+        <MovieList
+          icons={movieCardIcons.favouriteIcons}
+          movies={movies}
+          title="Favourites"
+          isDraggable
+        />
       </div>
     )
   );

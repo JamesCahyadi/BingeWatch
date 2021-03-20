@@ -4,26 +4,35 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import React, { useState } from "react";
 
 import MovieCard from "components/MovieCard";
-import { getCurrentPage } from "utils/urlHelpers";
+import { addMovie } from "utils/movieHelpers";
+import composeRefs from "@seznam/compose-react-refs";
 import { useAuth0 } from "@auth0/auth0-react";
-import useFetch from "hooks/useFetch";
-import { useLocation } from "react-router-dom";
+import useHorizontalScroll from "hooks/useHorizontalScroll";
 import useStyles from "components/MovieList/MovieListStyles";
 
-const MovieList = ({ movies, title }) => {
+const MovieList = ({
+  movies,
+  title,
+  icons,
+  recentlyClickedMovie,
+  toggleDrawer,
+  setNotificationData,
+  isDraggable = false,
+}) => {
   const { user } = useAuth0();
 
   const classes = useStyles();
-  const location = useLocation();
+  const horizontalScrollRef = useHorizontalScroll();
   const [shouldFadeLeft, setShouldFadeLeft] = useState(false);
   const [shouldFadeRight, setShouldFadeRight] = useState(true);
   const [listOfMovies, setListOfMovies] = useState(movies);
 
-  const handlePost = (oldIdx, newIdx) => {
+  console.log(movies);
+  const handleRearrange = (oldIdx, newIdx) => {
     const movie = listOfMovies[oldIdx];
     if (!movie.isDefault) {
       const options = {
-        method: "POST",
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
@@ -33,13 +42,53 @@ const MovieList = ({ movies, title }) => {
     }
   };
 
+  const handleDelete = async (movieId) => {
+    if (movieId) {
+      const idx = listOfMovies.findIndex((movie) => movie.id === movieId);
+
+      const options = {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ movieId, sortOrder: idx + 1 }),
+      };
+      const response = await fetch(`/profile/${user.sub}`, options);
+      const defaultMovie = await response.json();
+
+      const listOfMoviesClone = [...listOfMovies];
+      listOfMoviesClone.splice(idx, 1, defaultMovie);
+      setListOfMovies(listOfMoviesClone);
+    }
+  };
+
+  const handleInsert = async (sortOrder) => {
+    const { id: movieId } = recentlyClickedMovie;
+    const name = recentlyClickedMovie.name || recentlyClickedMovie.title;
+    const options = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ movieId, userId: user.sub, sortOrder }),
+    };
+    const response = await fetch("/movies", options);
+    const newlyAddedMovie = await response.json();
+
+    const listOfMoviesClone = [...listOfMovies];
+    listOfMoviesClone.splice(sortOrder - 1, 1, newlyAddedMovie);
+
+    toggleDrawer(null, listOfMoviesClone);
+    setNotificationData({ status: "success", text: `Added ${name} to favourite movies` });
+  };
+
   const updateSortOrders = (oldMovies) =>
     oldMovies.map((movie, idx) => {
       let retval = movie;
       const rank = idx + 1;
       if (movie.sortOrder !== rank) {
         retval = { ...movie, sortOrder: rank };
-        handlePost(movie.sortOrder - 1, idx);
+        handleRearrange(movie.sortOrder - 1, idx);
       }
       return retval;
     });
@@ -63,10 +112,17 @@ const MovieList = ({ movies, title }) => {
     const reachedRightSide = e.target.scrollWidth - e.target.scrollLeft === e.target.clientWidth;
     const reachedLeftSide = e.target.scrollLeft === 0;
 
-    /* eslint-disable no-unused-expressions */
-    reachedRightSide ? setShouldFadeRight(false) : setShouldFadeRight(true);
-    reachedLeftSide ? setShouldFadeLeft(false) : setShouldFadeLeft(true);
-    /* eslint-enable no-unused-expressions */
+    if (reachedRightSide && shouldFadeRight) {
+      setShouldFadeRight(false);
+    } else if (!shouldFadeRight) {
+      setShouldFadeRight(true);
+    }
+
+    if (reachedLeftSide && shouldFadeLeft) {
+      setShouldFadeLeft(false);
+    } else if (!shouldFadeLeft) {
+      setShouldFadeLeft(true);
+    }
   };
 
   return (
@@ -84,11 +140,11 @@ const MovieList = ({ movies, title }) => {
                 onScroll={handleScroll}
                 style={{ display: "flex" }}
                 {...providedDroppable.droppableProps}
-                ref={providedDroppable.innerRef}
+                ref={composeRefs(providedDroppable.innerRef, horizontalScrollRef)}
               >
                 {listOfMovies.map((movie, idx) => (
                   <Draggable
-                    isDragDisabled={getCurrentPage(location) === "home"}
+                    isDragDisabled={!isDraggable}
                     key={movie.id}
                     index={idx}
                     draggableId={String(movie.id)}
@@ -99,7 +155,15 @@ const MovieList = ({ movies, title }) => {
                         {...providedDraggable.draggableProps}
                         {...providedDraggable.dragHandleProps}
                       >
-                        <MovieCard movie={movie} rank={idx + 1} />
+                        <MovieCard
+                          movie={movie}
+                          rank={idx + 1}
+                          icons={icons}
+                          setNotificationData={setNotificationData}
+                          handleInsert={handleInsert}
+                          handleDelete={handleDelete}
+                          toggleDrawer={toggleDrawer}
+                        />
                       </div>
                     )}
                   </Draggable>

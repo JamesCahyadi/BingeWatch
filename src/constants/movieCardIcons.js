@@ -1,6 +1,8 @@
 export const imdbIconName = "imdb";
 export const deleteIconName = "delete";
 export const favouriteIconName = "favourite";
+export const insertIconName = "insert";
 
-export const profileMovieIcons = [imdbIconName, deleteIconName];
-export const homeMovieIcons = [imdbIconName, favouriteIconName];
+export const discoverIcons = [imdbIconName, favouriteIconName];
+export const favouriteIcons = [imdbIconName, deleteIconName];
+export const addToFavouriteIcons = [insertIconName];

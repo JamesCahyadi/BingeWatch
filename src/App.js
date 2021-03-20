@@ -6,7 +6,7 @@ import PageContainer from "components/PageContainer";
 import Profile from "pages/Profile";
 import React from "react";
 
-function App() {
+const App = () => {
   return (
     <div>
       <Navbar />
@@ -27,6 +27,6 @@ function App() {
       </Switch>
     </div>
   );
-}
+};
 
 export default App;

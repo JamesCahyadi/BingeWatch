@@ -10,6 +10,12 @@ const useStyles = makeStyles((theme) => ({
     height: "30px",
     width: "30px",
   },
+  insertButton: {
+    backgroundColor: "#66bb6a",
+    "&:hover": {
+      backgroundColor: "#66bb6a",
+    },
+  },
 }));
 
 export default useStyles;

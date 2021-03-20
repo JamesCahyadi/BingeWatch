@@ -12,6 +12,11 @@ const mainTheme = createMuiTheme({
       main: "#A9CAD6",
     },
   },
+  props: {
+    MuiButtonBase: {
+      disableRipple: true,
+    },
+  },
   overrides: {
     MuiIconButton: {
       root: {
@@ -23,10 +28,10 @@ const mainTheme = createMuiTheme({
     },
     MuiTooltip: {
       tooltip: {
-        backgroundColor: "#005776",
+        backgroundColor: "#005776E6",
       },
       arrow: {
-        color: "#005776",
+        color: "#005776E6",
       },
     },
   },
