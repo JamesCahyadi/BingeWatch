@@ -66,9 +66,7 @@ const Home = () => {
           </Drawer>
           <Notification
             setNotificationData={setNotificationData}
-            isOpen={notificationData.status !== ""}
-            status={notificationData.status}
-            text={notificationData.text}
+            notificationData={notificationData}
           />
         </>
       )}

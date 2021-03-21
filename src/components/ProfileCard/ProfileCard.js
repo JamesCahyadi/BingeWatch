@@ -5,8 +5,11 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import React from "react";
 import Typography from "@material-ui/core/Typography";
+import useUser from "context/UserContext";
 
-const ProfileCard = ({ user }) => {
+const ProfileCard = () => {
+  const { user } = useUser();
+
   console.log(user);
   return (
     <div>

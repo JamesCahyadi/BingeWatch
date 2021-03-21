@@ -7,10 +7,16 @@ const deleteFavouriteMovieQuery = "DELETE FROM favourite_movies WHERE user_id = 
 const getSingleFavouriteMovieQuery =
   "SELECT sort_order FROM favourite_movies WHERE user_id = $1 and id = $2";
 
+const insertUserQuery =
+  "INSERT INTO users(username, password) VALUES ($1, $2) returning id, username";
+const getSingleUserQuery = "SELECT id, password FROM users WHERE username = $1";
+
 module.exports = {
   getFavouriteMoviesQuery,
   updateFavouriteMoviesQuery,
   deleteFavouriteMovieQuery,
   insertFavouriteMovieQuery,
   getSingleFavouriteMovieQuery,
+  insertUserQuery,
+  getSingleUserQuery,
 };

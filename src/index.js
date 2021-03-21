@@ -1,27 +1,24 @@
+/* eslint-disable import/order */
+
 import { CssBaseline, ThemeProvider } from "@material-ui/core";
 
-// eslint-disable-next-line import/order
 import App from "./App";
-import { Auth0Provider } from "@auth0/auth0-react";
 import { BrowserRouter } from "react-router-dom";
 import React from "react";
 import ReactDOM from "react-dom";
+import { UserProvider } from "context/UserContext";
 import mainTheme from "theme";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Auth0Provider
-      domain={process.env.REACT_APP_AUTH0_DOMAIN}
-      clientId={process.env.REACT_APP_AUTH0_CLIENT_ID}
-      redirectUri={`${window.location.origin}/movies`}
-    >
-      <CssBaseline />
-      <ThemeProvider theme={mainTheme}>
-        <BrowserRouter>
+    <CssBaseline />
+    <ThemeProvider theme={mainTheme}>
+      <BrowserRouter>
+        <UserProvider>
           <App />
-        </BrowserRouter>
-      </ThemeProvider>
-    </Auth0Provider>
+        </UserProvider>
+      </BrowserRouter>
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById("root"),
 );
