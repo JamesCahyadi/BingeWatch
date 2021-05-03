@@ -10,6 +10,7 @@ const getSingleFavouriteMovieQuery =
 const insertUserQuery =
   "INSERT INTO users(username, password) VALUES ($1, $2) returning id, username";
 const getSingleUserQuery = "SELECT id, password FROM users WHERE username = $1";
+const getUsersQuery = "SELECT username FROM users WHERE username ILIKE $1 || '%'";
 
 module.exports = {
   getFavouriteMoviesQuery,
@@ -19,4 +20,5 @@ module.exports = {
   getSingleFavouriteMovieQuery,
   insertUserQuery,
   getSingleUserQuery,
+  getUsersQuery,
 };

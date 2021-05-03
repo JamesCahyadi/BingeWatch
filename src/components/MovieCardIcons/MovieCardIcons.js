@@ -11,6 +11,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import { getImdbUrl } from "utils/urlHelpers";
 import imdbLogo from "assets/imdb.png";
 import useStyles from "components/MovieCardIcons/MovieCardIconsStyles";
+import useUser from "context/UserContext";
 
 const MovieCardIcons = ({
   movie,
@@ -21,6 +22,9 @@ const MovieCardIcons = ({
   handleDelete,
   toggleDrawer,
 }) => {
+  if (icons === []) return null;
+
+  const { user, setUser } = useUser();
   const classes = useStyles();
 
   const handleAddToFavourites = async () => {

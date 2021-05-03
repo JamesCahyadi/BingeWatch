@@ -4,9 +4,14 @@ import MovieList from "components/MovieList/MovieList";
 import ProfileCard from "components/ProfileCard";
 import React from "react";
 import useFetch from "hooks/useFetch";
+import { useLocation } from "react-router-dom";
+import useUser from "context/UserContext";
 
 const Profile = () => {
-  const { data: movies, isLoading: isFetchLoading, error } = useFetch("/profile/12345");
+  const location = useLocation();
+  const username = location.pathname.split("/")[2];
+  const { user } = useUser();
+  const { data: movies, isLoading: isFetchLoading, error } = useFetch(`/profile/${username}`);
 
   if (isFetchLoading) {
     return <div>Loading ...</div>;
@@ -15,15 +20,16 @@ const Profile = () => {
   if (error) {
     return <div>Error</div>;
   }
+  const isCurrentUser = user && user.username === username;
 
   return (
     <div>
-      <ProfileCard />
+      <ProfileCard username={username} />
       <MovieList
-        icons={movieCardIcons.favouriteIcons}
+        icons={isCurrentUser ? movieCardIcons.favouriteIcons : []}
         movies={movies}
-        title="Favourites"
-        isDraggable
+        title={isCurrentUser ? "Your Favourites" : `${username}'s Favourites`}
+        isDraggable={isCurrentUser}
       />
     </div>
   );

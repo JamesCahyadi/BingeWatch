@@ -14,8 +14,8 @@ const Navbar = () => {
   const { user, setUser } = useUser();
 
   const goToProfile = () => {
-    const path = "/profile/12345";
-    history.push(path);
+    const { username } = user;
+    history.push(`/profile/${username}`);
   };
 
   const goToHome = () => {

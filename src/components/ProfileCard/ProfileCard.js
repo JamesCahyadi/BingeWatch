@@ -7,21 +7,21 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import useUser from "context/UserContext";
 
-const ProfileCard = () => {
+const ProfileCard = ({ username }) => {
   const { user } = useUser();
 
-  console.log(user);
+  const isCurrentUser = user && user.username === username;
+
   return (
     <div>
       <Card>
         <CardContent>
-          <Avatar alt={user.name} src={user.picture} />
-          <Typography>{user.name || user.nickname}</Typography>
-          {user.sub}
+          <Avatar alt={username}>{username.charAt(0)}</Avatar>
+          <Typography>{username}</Typography>
         </CardContent>
         <CardActions>
-          <Button>Connect</Button>
           <Button>0 connections</Button>
+          {!isCurrentUser && <Button>Connect</Button>}
         </CardActions>
       </Card>
     </div>

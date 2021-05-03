@@ -1,7 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const db = require("../db");
-const { insertUserQuery, getSingleUserQuery } = require("../constants/queries");
+const { insertUserQuery, getSingleUserQuery, getUsersQuery } = require("../constants/queries");
 
 const router = express.Router();
 
@@ -41,6 +41,14 @@ router.post("/users", async (req, res) => {
   const { rows: userInfo } = await db.query(insertUserQuery, [username, hash]);
   const { id, username: newUserName } = userInfo;
   res.send({ id, username: newUserName });
+});
+
+router.get("/users/:username", async (req, res) => {
+  const { username } = req.params;
+
+  console.log(username);
+  const { rows } = await db.query(getUsersQuery, [username]);
+  res.send(rows);
 });
 
 module.exports = router;

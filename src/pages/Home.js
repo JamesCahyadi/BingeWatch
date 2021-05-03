@@ -5,15 +5,18 @@ import React, { useEffect, useState } from "react";
 import Drawer from "@material-ui/core/Drawer";
 import MovieList from "components/MovieList/MovieList";
 import Notification from "components/Notification";
+import UserSearch from "components/UserSearch";
 import useFetch from "hooks/useFetch";
+import useUser from "context/UserContext";
 
 const Home = () => {
   const { data, isLoading, error } = useFetch("/movies");
   const [isShowingDrawer, setIsShowingDrawer] = useState(false);
   const [recentlyClickedMovie, setRecentlyClickedMovie] = useState({});
   const [notificationData, setNotificationData] = useState({ status: "", text: "" });
+  const { user } = useUser();
   const { data: drawerMovies, setData: setDrawerMovies, isLoading: isFetchLoading } = useFetch(
-    "/profile/google-oauth2|110432547213216868876",
+    "/profile",
   );
 
   let dailyTrendingMoviesWithImdb;
@@ -40,6 +43,7 @@ const Home = () => {
       {isLoading && <div>Loading...</div>}
       {data && (
         <>
+          <UserSearch />
           <MovieList
             toggleDrawer={toggleDrawer}
             movies={dailyTrendingMoviesWithImdb}
