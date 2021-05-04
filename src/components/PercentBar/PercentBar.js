@@ -1,6 +1,6 @@
 import React from "react";
 import { getRatingColour } from "utils/colourHelpers";
-import useStyles from "./PercentBarStyles";
+import useStyles from "components/PercentBar/PercentBarStyles";
 
 const PercentBar = ({ rating }) => {
   const classes = useStyles();

@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
 import { inputDebounceTime } from "constants/numbers";
+import { insertIconName } from "constants/movieCardIcons";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import React, { useState, useRef, useEffect } from "react";
 
@@ -30,19 +31,19 @@ const MovieList = ({
   const movieSearchRef = useRef(null);
   const { user } = useUser();
 
-  console.log(movies);
+  console.log(listOfMovies);
 
+  // eslint-disable-next-line consistent-return
   useEffect(() => {
-    const delayDebounceFn = setTimeout(() => {
-      fetch(`/movies/${searchedMovie}`)
-        .then((response) => response.json())
-        .then((data) => {
-          setListOfMovies(data);
-        });
-      // Send Axios request here
-    }, inputDebounceTime);
+    if (searchedMovie) {
+      const delayDebounceFn = setTimeout(() => {
+        fetch(`/movies/${searchedMovie}`)
+          .then((response) => response.json())
+          .then((data) => setListOfMovies(data));
+      }, inputDebounceTime);
 
-    return () => clearTimeout(delayDebounceFn);
+      return () => clearTimeout(delayDebounceFn);
+    }
   }, [searchedMovie]);
 
   const handleRearrange = (oldIdx, newIdx) => {
@@ -188,7 +189,7 @@ const MovieList = ({
                         <MovieCard
                           movie={movie}
                           rank={idx + 1}
-                          icons={movie.isDefault ? [] : icons}
+                          icons={movie.isDefault && !icons.includes(insertIconName) ? [] : icons}
                           setNotificationData={setNotificationData}
                           handleInsert={handleInsert}
                           handleDelete={handleDelete}
