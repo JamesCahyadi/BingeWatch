@@ -18,11 +18,6 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: "0 8px 6px -6px black",
     borderRadius: "4px",
   },
-  formField: {
-    background: theme.palette.secondary.main,
-    padding: "15px",
-    borderRadius: "8px",
-  },
   formGrid: {
     display: "flex",
     width: "100%",

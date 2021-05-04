@@ -1,35 +1,17 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/no-unknown-property */
-import React, { forwardRef, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 
 import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import Button from "@material-ui/core/Button";
-import InputAdornment from "@material-ui/core/InputAdornment";
 import Link from "@material-ui/core/Link";
 import LockIcon from "@material-ui/icons/Lock";
 import Notification from "components/Notification";
-import TextField from "@material-ui/core/TextField";
+import InputField from "components/InputField";
 import { useHistory } from "react-router-dom";
 import useStyles from "components/LoginForm/LoginFormStyles";
 import useUser from "context/UserContext";
-
-const LoginField = forwardRef(({ icon, type, placeholder }, ref) => {
-  const classes = useStyles();
-
-  return (
-    <TextField
-      className={classes.formField}
-      required
-      inputRef={ref}
-      type={type}
-      placeholder={placeholder}
-      InputProps={{
-        startAdornment: <InputAdornment position="start">{icon}</InputAdornment>,
-      }}
-    />
-  );
-});
 
 const LoginForm = () => {
   const [title, setTitle] = useState("Login");
@@ -112,13 +94,19 @@ const LoginForm = () => {
     <>
       <Notification notificationData={notificationData} />
       <form onSubmit={(e) => handleSubmit(e)} className={classes.formContainer}>
-        <LoginField
+        <InputField
+          hasBackground
           ref={usernameRef}
           icon={<AssignmentIndIcon />}
-          type="username"
           placeholder="Username"
         />
-        <LoginField ref={passwordRef} icon={<LockIcon />} type="password" placeholder="Password" />
+        <InputField
+          hasBackground
+          ref={passwordRef}
+          icon={<LockIcon />}
+          type="password"
+          placeholder="Password"
+        />
         <Button color="primary" variant="contained" type="submit">
           {title}
         </Button>

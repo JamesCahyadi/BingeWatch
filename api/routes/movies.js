@@ -4,7 +4,7 @@ const fetchData = require("../utils/fetchData");
 const {
   TMDB_DAILY_TRENDING_URL,
   TMDB_WEEKLY_TRENDING_URL,
-  TMDB_VISIT_IMDB_URL,
+  TMDB_QUERY_SEARCH_URL,
 } = require("../constants/urls");
 const { insertFavouriteMovieQuery, getSingleFavouriteMovieQuery } = require("../constants/queries");
 const { createUrl } = require("../utils/urlHelpers");
@@ -24,6 +24,15 @@ router.get("/movies", async (req, res) => {
   const weeklyTrendingMoviesWithImdb = await getFormattedMovies(weeklyTrendingMovieIds);
 
   res.send({ dailyTrendingMoviesWithImdb, weeklyTrendingMoviesWithImdb });
+});
+
+router.get("/movies/:query", async (req, res) => {
+  const { query } = req.params;
+  const movieSearchURL = createUrl(TMDB_QUERY_SEARCH_URL, [query, 1]);
+  const { results } = await fetchData(movieSearchURL);
+  const searchedMovieIds = extractMovieIds(results);
+  const searchedMoviesWithImdb = await getFormattedMovies(searchedMovieIds);
+  res.send(searchedMoviesWithImdb);
 });
 
 router.get("/movies/:movieId/:userId", async (req, res) => {

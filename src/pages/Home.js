@@ -41,13 +41,14 @@ const Home = () => {
       {isLoading && <div>Loading...</div>}
       {data && (
         <>
-          <MovieList
+          {/* <MovieList
             toggleDrawer={toggleDrawer}
             movies={[]}
             title="Search for movies"
             icons={discoverIcons}
             setNotificationData={setNotificationData}
-          />
+            hasSearch
+          /> */}
           <MovieList
             toggleDrawer={toggleDrawer}
             movies={dailyTrendingMoviesWithImdb}

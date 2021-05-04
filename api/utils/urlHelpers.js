@@ -7,19 +7,21 @@ const createUrl = (urlObj, urlParams = []) => {
   const { apiKeyIndex } = clonedObj;
   // eslint-disable-next-line no-param-reassign
   delete clonedObj.apiKeyIndex;
+  let urlParamsIdx = 0;
 
   const url = Object.values(clonedObj).map((part, idx) => {
-    let partialUrl;
+    let partialUrl = "";
 
     if (apiKeyIndex === idx) {
       partialUrl = part + TMDB_KEY;
     } else {
-      partialUrl = part + urlParams[idx];
+      partialUrl = part + urlParams[urlParamsIdx++];
     }
+
     return partialUrl;
   });
 
-  return url;
+  return url.join("");
 };
 
 module.exports = {

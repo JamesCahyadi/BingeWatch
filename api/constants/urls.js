@@ -16,11 +16,11 @@ const TMDB_SINGLE_MOVIE_ID_SEARCH_URL = {
   partTwo: "?api_key=",
   apiKeyIndex: 1,
 };
-const TMDB_MULTI_SEARCH_URL = {
+const TMDB_QUERY_SEARCH_URL = {
   partOne: "https://api.themoviedb.org/3/search/multi?api_key=",
   partTwo: "&language=en-US&include_adult=false&query=",
-  partThree: "&page=1",
-  apiKeyIndex: 1,
+  partThree: "&page=",
+  apiKeyIndex: 0,
 };
 
 module.exports = {
@@ -28,5 +28,5 @@ module.exports = {
   TMDB_WEEKLY_TRENDING_URL,
   TMDB_VISIT_IMDB_URL,
   TMDB_SINGLE_MOVIE_ID_SEARCH_URL,
-  TMDB_MULTI_SEARCH_URL,
+  TMDB_QUERY_SEARCH_URL,
 };

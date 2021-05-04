@@ -9,6 +9,11 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "30px",
     borderRadius: "40px",
   },
+  movieListHeader: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
   movieListTitle: {
     fontSize: "18px",
     fontWeight: "bold",

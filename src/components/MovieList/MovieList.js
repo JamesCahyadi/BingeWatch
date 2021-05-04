@@ -1,13 +1,14 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
+import { inputDebounceTime } from "constants/numbers";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import MovieCard from "components/MovieCard";
-import { addMovie } from "utils/movieHelpers";
 import composeRefs from "@seznam/compose-react-refs";
 import useHorizontalScroll from "hooks/useHorizontalScroll";
 import useStyles from "components/MovieList/MovieListStyles";
+import InputField from "components/InputField";
 
 const MovieList = ({
   movies,
@@ -16,15 +17,33 @@ const MovieList = ({
   recentlyClickedMovie,
   toggleDrawer,
   setNotificationData,
-  isDraggable = false,
+  isDraggable,
+  hasSearch,
 }) => {
   const classes = useStyles();
   const horizontalScrollRef = useHorizontalScroll();
   const [shouldFadeLeft, setShouldFadeLeft] = useState(false);
   const [shouldFadeRight, setShouldFadeRight] = useState(true);
   const [listOfMovies, setListOfMovies] = useState(movies);
+  const [searchedMovie, setSearchedMovie] = useState("");
+  const movieSearchRef = useRef(null);
 
   console.log(movies);
+
+  // useEffect(() => {
+  //   const delayDebounceFn = setTimeout(() => {
+  //     fetch(`/movies/${searchedMovie}`)
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         console.log("data", data);
+  //         // setListOfMovies(data);
+  //       });
+  //     // Send Axios request here
+  //   }, inputDebounceTime);
+
+  //   return () => clearTimeout(delayDebounceFn);
+  // }, [searchedMovie]);
+
   const handleRearrange = (oldIdx, newIdx) => {
     const movie = listOfMovies[oldIdx];
     if (!movie.isDefault) {
@@ -55,6 +74,7 @@ const MovieList = ({
 
       const listOfMoviesClone = [...listOfMovies];
       listOfMoviesClone.splice(idx, 1, defaultMovie);
+      console.log(listOfMoviesClone);
       setListOfMovies(listOfMoviesClone);
     }
   };
@@ -124,7 +144,21 @@ const MovieList = ({
 
   return (
     <div className={classes.movieListContainer}>
-      <div className={classes.movieListTitle}>{title}</div>
+      <div className={classes.movieListHeader}>
+        <div className={classes.movieListTitle}>{title}</div>
+        {hasSearch && (
+          <InputField
+            onChangeFunc={(e) => {
+              const query = e.target.value;
+              if (query) {
+                setSearchedMovie(query);
+              }
+            }}
+            ref={movieSearchRef}
+            placeholder="Search"
+          />
+        )}
+      </div>
       <div className={classes.fadeContainer}>
         <DragDropContext onDragEnd={handleOnDragEnd}>
           <Droppable droppableId="movies" direction="horizontal">
@@ -154,7 +188,7 @@ const MovieList = ({
                         <MovieCard
                           movie={movie}
                           rank={idx + 1}
-                          icons={movie.isDefault ? [] : icons}
+                          icons={icons}
                           setNotificationData={setNotificationData}
                           handleInsert={handleInsert}
                           handleDelete={handleDelete}
