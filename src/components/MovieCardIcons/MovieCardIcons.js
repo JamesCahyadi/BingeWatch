@@ -10,8 +10,8 @@ import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import { getImdbUrl } from "utils/urlHelpers";
 import imdbLogo from "assets/imdb.png";
-import { useAuth0 } from "@auth0/auth0-react";
 import useStyles from "components/MovieCardIcons/MovieCardIconsStyles";
+import useUser from "context/UserContext";
 
 const MovieCardIcons = ({
   movie,
@@ -22,11 +22,13 @@ const MovieCardIcons = ({
   handleDelete,
   toggleDrawer,
 }) => {
+  if (icons === []) return null;
+
+  const { user, setUser } = useUser();
   const classes = useStyles();
-  const { user } = useAuth0();
 
   const handleAddToFavourites = async () => {
-    const response = await fetch(`/movies/${movie.id}/${user.sub}`);
+    const response = await fetch(`/movies/${movie.id}/12345`);
     const [data] = await response.json();
     let sortOrder = null;
     if (data) {

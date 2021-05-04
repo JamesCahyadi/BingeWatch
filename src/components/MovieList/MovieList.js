@@ -6,7 +6,6 @@ import React, { useState } from "react";
 import MovieCard from "components/MovieCard";
 import { addMovie } from "utils/movieHelpers";
 import composeRefs from "@seznam/compose-react-refs";
-import { useAuth0 } from "@auth0/auth0-react";
 import useHorizontalScroll from "hooks/useHorizontalScroll";
 import useStyles from "components/MovieList/MovieListStyles";
 
@@ -19,8 +18,6 @@ const MovieList = ({
   setNotificationData,
   isDraggable = false,
 }) => {
-  const { user } = useAuth0();
-
   const classes = useStyles();
   const horizontalScrollRef = useHorizontalScroll();
   const [shouldFadeLeft, setShouldFadeLeft] = useState(false);
@@ -38,7 +35,7 @@ const MovieList = ({
         },
         body: JSON.stringify({ movieId: movie.id, sortOrder: newIdx + 1 }),
       };
-      fetch(`/profile/${user.sub}`, options);
+      fetch("/profile/12345", options);
     }
   };
 
@@ -53,7 +50,7 @@ const MovieList = ({
         },
         body: JSON.stringify({ movieId, sortOrder: idx + 1 }),
       };
-      const response = await fetch(`/profile/${user.sub}`, options);
+      const response = await fetch("/profile/12345", options);
       const defaultMovie = await response.json();
 
       const listOfMoviesClone = [...listOfMovies];
@@ -70,7 +67,7 @@ const MovieList = ({
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ movieId, userId: user.sub, sortOrder }),
+      body: JSON.stringify({ movieId, userId: 12345, sortOrder }),
     };
     const response = await fetch("/movies", options);
     const newlyAddedMovie = await response.json();

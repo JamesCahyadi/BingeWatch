@@ -4,13 +4,14 @@ import { Alert } from "@material-ui/lab";
 import Snackbar from "@material-ui/core/Snackbar";
 import useStyles from "components/Notification/NotificationStyles";
 
-const Notification = React.memo(({ isOpen, setNotificationData, text, status }) => {
+const Notification = ({ notificationData, setNotificationData }) => {
   const classes = useStyles();
-  const [open, setOpen] = useState(isOpen);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    setOpen(isOpen);
-  }, [isOpen]);
+    const isData = notificationData.status !== "";
+    setOpen(isData);
+  }, [notificationData]);
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -29,9 +30,9 @@ const Notification = React.memo(({ isOpen, setNotificationData, text, status }) 
       autoHideDuration={5000}
       onClose={handleClose}
     >
-      <Alert severity={status}>{text}</Alert>
+      <Alert severity={notificationData.status}>{notificationData.text}</Alert>
     </Snackbar>
   );
-});
+};
 
 export default Notification;
