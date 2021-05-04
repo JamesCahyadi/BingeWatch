@@ -1,6 +1,6 @@
 import { Redirect, Route, Switch } from "react-router-dom";
 
-import Home from "pages/Home";
+import Browse from "pages/Browse";
 import Login from "pages/Login";
 import Navbar from "components/Navbar";
 import PageContainer from "components/PageContainer";
@@ -22,7 +22,7 @@ const App = () => {
         </Route>
         <Route exact path="/movies">
           <PageContainer>
-            <Home />
+            <Browse />
           </PageContainer>
         </Route>
         <Route exact path="/profile/:id">

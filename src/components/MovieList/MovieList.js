@@ -32,19 +32,18 @@ const MovieList = ({
 
   console.log(movies);
 
-  // useEffect(() => {
-  //   const delayDebounceFn = setTimeout(() => {
-  //     fetch(`/movies/${searchedMovie}`)
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         console.log("data", data);
-  //         // setListOfMovies(data);
-  //       });
-  //     // Send Axios request here
-  //   }, inputDebounceTime);
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      fetch(`/movies/${searchedMovie}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setListOfMovies(data);
+        });
+      // Send Axios request here
+    }, inputDebounceTime);
 
-  //   return () => clearTimeout(delayDebounceFn);
-  // }, [searchedMovie]);
+    return () => clearTimeout(delayDebounceFn);
+  }, [searchedMovie]);
 
   const handleRearrange = (oldIdx, newIdx) => {
     const movie = listOfMovies[oldIdx];
@@ -76,7 +75,6 @@ const MovieList = ({
 
       const listOfMoviesClone = [...listOfMovies];
       listOfMoviesClone.splice(idx, 1, defaultMovie);
-      console.log(listOfMoviesClone);
       setListOfMovies(listOfMoviesClone);
     }
   };
@@ -84,7 +82,6 @@ const MovieList = ({
   const handleInsert = async (sortOrder) => {
     const { id: movieId } = recentlyClickedMovie;
     const name = recentlyClickedMovie.name || recentlyClickedMovie.title;
-    console.log("userid", user.id);
     const options = {
       method: "PUT",
       headers: {

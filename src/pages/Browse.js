@@ -1,6 +1,6 @@
 import * as movieCardIcons from "constants/movieCardIcons";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import Drawer from "@material-ui/core/Drawer";
 import MovieList from "components/MovieList/MovieList";
@@ -8,7 +8,7 @@ import Notification from "components/Notification";
 import useFetch from "hooks/useFetch";
 import useUser from "context/UserContext";
 
-const Home = () => {
+const Browse = () => {
   const { user } = useUser();
   const { data, isLoading, error } = useFetch("/movies");
   const [isShowingDrawer, setIsShowingDrawer] = useState(false);
@@ -17,8 +17,6 @@ const Home = () => {
   const { data: drawerMovies, setData: setDrawerMovies, isLoading: isFetchLoading } = useFetch(
     `/profile/${user.id}`,
   );
-
-  console.log(user);
 
   let dailyTrendingMoviesWithImdb;
   let weeklyTrendingMoviesWithImdb;
@@ -44,14 +42,14 @@ const Home = () => {
       {isLoading && <div>Loading...</div>}
       {data && (
         <>
-          {/* <MovieList
+          <MovieList
             toggleDrawer={toggleDrawer}
             movies={[]}
             title="Search for movies"
             icons={discoverIcons}
             setNotificationData={setNotificationData}
             hasSearch
-          /> */}
+          />
           <MovieList
             toggleDrawer={toggleDrawer}
             movies={dailyTrendingMoviesWithImdb}
@@ -86,4 +84,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Browse;
