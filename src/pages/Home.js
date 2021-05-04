@@ -5,7 +5,6 @@ import React, { useEffect, useState } from "react";
 import Drawer from "@material-ui/core/Drawer";
 import MovieList from "components/MovieList/MovieList";
 import Notification from "components/Notification";
-import UserSearch from "components/UserSearch";
 import useFetch from "hooks/useFetch";
 import useUser from "context/UserContext";
 
@@ -14,7 +13,6 @@ const Home = () => {
   const [isShowingDrawer, setIsShowingDrawer] = useState(false);
   const [recentlyClickedMovie, setRecentlyClickedMovie] = useState({});
   const [notificationData, setNotificationData] = useState({ status: "", text: "" });
-  const { user } = useUser();
   const { data: drawerMovies, setData: setDrawerMovies, isLoading: isFetchLoading } = useFetch(
     "/profile",
   );
@@ -43,7 +41,13 @@ const Home = () => {
       {isLoading && <div>Loading...</div>}
       {data && (
         <>
-          <UserSearch />
+          <MovieList
+            toggleDrawer={toggleDrawer}
+            movies={[]}
+            title="Search for movies"
+            icons={discoverIcons}
+            setNotificationData={setNotificationData}
+          />
           <MovieList
             toggleDrawer={toggleDrawer}
             movies={dailyTrendingMoviesWithImdb}
