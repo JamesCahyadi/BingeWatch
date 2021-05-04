@@ -11,6 +11,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import { getImdbUrl } from "utils/urlHelpers";
 import imdbLogo from "assets/imdb.png";
 import useStyles from "components/MovieCardIcons/MovieCardIconsStyles";
+import useUser from "context/UserContext";
 
 const MovieCardIcons = ({
   movie,
@@ -24,9 +25,10 @@ const MovieCardIcons = ({
   if (icons === []) return null;
 
   const classes = useStyles();
+  const { user } = useUser();
 
   const handleAddToFavourites = async () => {
-    const response = await fetch(`/movies/${movie.id}/12345`);
+    const response = await fetch(`/movies/${movie.id}/${user.id}`);
     const [data] = await response.json();
     let sortOrder = null;
     if (data) {

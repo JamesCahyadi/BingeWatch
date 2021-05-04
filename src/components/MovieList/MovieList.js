@@ -9,6 +9,7 @@ import composeRefs from "@seznam/compose-react-refs";
 import useHorizontalScroll from "hooks/useHorizontalScroll";
 import useStyles from "components/MovieList/MovieListStyles";
 import InputField from "components/InputField";
+import useUser from "context/UserContext";
 
 const MovieList = ({
   movies,
@@ -27,6 +28,7 @@ const MovieList = ({
   const [listOfMovies, setListOfMovies] = useState(movies);
   const [searchedMovie, setSearchedMovie] = useState("");
   const movieSearchRef = useRef(null);
+  const { user } = useUser();
 
   console.log(movies);
 
@@ -54,7 +56,7 @@ const MovieList = ({
         },
         body: JSON.stringify({ movieId: movie.id, sortOrder: newIdx + 1 }),
       };
-      fetch("/profile/12345", options);
+      fetch(`/profile/${user.id}`, options);
     }
   };
 
@@ -69,7 +71,7 @@ const MovieList = ({
         },
         body: JSON.stringify({ movieId, sortOrder: idx + 1 }),
       };
-      const response = await fetch("/profile/12345", options);
+      const response = await fetch(`/profile/${user.id}`, options);
       const defaultMovie = await response.json();
 
       const listOfMoviesClone = [...listOfMovies];
@@ -82,12 +84,13 @@ const MovieList = ({
   const handleInsert = async (sortOrder) => {
     const { id: movieId } = recentlyClickedMovie;
     const name = recentlyClickedMovie.name || recentlyClickedMovie.title;
+    console.log("userid", user.id);
     const options = {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ movieId, userId: 12345, sortOrder }),
+      body: JSON.stringify({ movieId, userId: user.id, sortOrder }),
     };
     const response = await fetch("/movies", options);
     const newlyAddedMovie = await response.json();
@@ -188,7 +191,7 @@ const MovieList = ({
                         <MovieCard
                           movie={movie}
                           rank={idx + 1}
-                          icons={icons}
+                          icons={movie.isDefault ? [] : icons}
                           setNotificationData={setNotificationData}
                           handleInsert={handleInsert}
                           handleDelete={handleDelete}

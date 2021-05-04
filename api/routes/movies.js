@@ -43,9 +43,11 @@ router.get("/movies/:movieId/:userId", async (req, res) => {
 
 router.put("/movies", async (req, res) => {
   const { movieId, userId, sortOrder } = req.body;
+  console.log(movieId, userId, sortOrder);
   await db.query(insertFavouriteMovieQuery, [userId, movieId, sortOrder]);
   const [newlyAddedMovie] = await getFormattedMovies([{ id: movieId }]);
   res.send(newlyAddedMovie);
+  // res.end();
 });
 
 module.exports = router;

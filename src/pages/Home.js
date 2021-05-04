@@ -9,13 +9,16 @@ import useFetch from "hooks/useFetch";
 import useUser from "context/UserContext";
 
 const Home = () => {
+  const { user } = useUser();
   const { data, isLoading, error } = useFetch("/movies");
   const [isShowingDrawer, setIsShowingDrawer] = useState(false);
   const [recentlyClickedMovie, setRecentlyClickedMovie] = useState({});
   const [notificationData, setNotificationData] = useState({ status: "", text: "" });
   const { data: drawerMovies, setData: setDrawerMovies, isLoading: isFetchLoading } = useFetch(
-    "/profile",
+    `/profile/${user.id}`,
   );
+
+  console.log(user);
 
   let dailyTrendingMoviesWithImdb;
   let weeklyTrendingMoviesWithImdb;
