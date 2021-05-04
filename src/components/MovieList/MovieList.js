@@ -135,7 +135,6 @@ const MovieList = ({
                   shouldFadeLeft ? classes.fadeLeft : ""
                 }`}
                 onScroll={handleScroll}
-                style={{ display: "flex" }}
                 {...providedDroppable.droppableProps}
                 ref={composeRefs(providedDroppable.innerRef, horizontalScrollRef)}
               >
@@ -155,7 +154,7 @@ const MovieList = ({
                         <MovieCard
                           movie={movie}
                           rank={idx + 1}
-                          icons={icons}
+                          icons={movie.isDefault ? [] : icons}
                           setNotificationData={setNotificationData}
                           handleInsert={handleInsert}
                           handleDelete={handleDelete}

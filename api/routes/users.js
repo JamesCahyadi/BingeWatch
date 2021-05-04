@@ -46,7 +46,6 @@ router.post("/users", async (req, res) => {
 router.get("/users/:username", async (req, res) => {
   const { username } = req.params;
 
-  console.log(username);
   const { rows } = await db.query(getUsersQuery, [username]);
   res.send(rows);
 });

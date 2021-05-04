@@ -1,6 +1,6 @@
 import * as movieCardIcons from "constants/movieCardIcons";
 
-import React, { useState } from "react";
+import React from "react";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -11,7 +11,6 @@ import Tooltip from "@material-ui/core/Tooltip";
 import { getImdbUrl } from "utils/urlHelpers";
 import imdbLogo from "assets/imdb.png";
 import useStyles from "components/MovieCardIcons/MovieCardIconsStyles";
-import useUser from "context/UserContext";
 
 const MovieCardIcons = ({
   movie,
@@ -24,7 +23,6 @@ const MovieCardIcons = ({
 }) => {
   if (icons === []) return null;
 
-  const { user, setUser } = useUser();
   const classes = useStyles();
 
   const handleAddToFavourites = async () => {

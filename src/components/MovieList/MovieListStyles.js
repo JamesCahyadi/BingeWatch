@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
   },
   movieCardsContainer: {
+    display: "flex",
     overflowX: "scroll",
     "&::-webkit-scrollbar": {
       padding: "5px",
