@@ -43,7 +43,7 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar className={classes.navbar} position="static">
       <Toolbar className={classes.navIconsContainer}>
         <Button className={classes.title} onClick={goToHome} color="secondary">
           <img className={classes.logo} src={logo} alt="Logo" />

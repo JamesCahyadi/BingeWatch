@@ -1,6 +1,9 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
+  navbar: {
+    marginBottom: "30px",
+  },
   navIconsContainer: {
     display: "flex",
     justifyContent: "space-between",

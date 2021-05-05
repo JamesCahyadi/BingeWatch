@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     background: "#ffffff",
     padding: "20px",
-    marginTop: "30px",
+    marginBottom: "30px",
     borderRadius: "40px",
   },
   movieListHeader: {
@@ -21,9 +21,24 @@ const useStyles = makeStyles((theme) => ({
   fadeContainer: {
     position: "relative",
   },
+  emptyMoviesContainer: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+  },
+  noResultsContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  label: {
+    marginTop: "6px",
+  },
   movieCardsContainer: {
     display: "flex",
     overflowX: "scroll",
+    minHeight: "100px",
     "&::-webkit-scrollbar": {
       padding: "5px",
       height: "8px",

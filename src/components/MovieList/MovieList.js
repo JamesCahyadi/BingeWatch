@@ -11,6 +11,8 @@ import useHorizontalScroll from "hooks/useHorizontalScroll";
 import useStyles from "components/MovieList/MovieListStyles";
 import InputField from "components/InputField";
 import useUser from "context/UserContext";
+import noResultsImg from "assets/noResults.svg";
+import Loader from "components/Loader";
 
 const MovieList = ({
   movies,
@@ -28,18 +30,23 @@ const MovieList = ({
   const [shouldFadeRight, setShouldFadeRight] = useState(true);
   const [listOfMovies, setListOfMovies] = useState(movies);
   const [searchedMovie, setSearchedMovie] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const movieSearchRef = useRef(null);
   const { user } = useUser();
-
-  console.log(listOfMovies);
 
   // eslint-disable-next-line consistent-return
   useEffect(() => {
     if (searchedMovie) {
       const delayDebounceFn = setTimeout(() => {
+        setIsLoading(true);
+        setListOfMovies([]);
+
         fetch(`/movies/${searchedMovie}`)
           .then((response) => response.json())
-          .then((data) => setListOfMovies(data));
+          .then((data) => {
+            setListOfMovies(data);
+            setIsLoading(false);
+          });
       }, inputDebounceTime);
 
       return () => clearTimeout(delayDebounceFn);
@@ -173,38 +180,55 @@ const MovieList = ({
                 {...providedDroppable.droppableProps}
                 ref={composeRefs(providedDroppable.innerRef, horizontalScrollRef)}
               >
-                {listOfMovies.map((movie, idx) => (
-                  <Draggable
-                    isDragDisabled={!isDraggable}
-                    key={movie.id}
-                    index={idx}
-                    draggableId={String(movie.id)}
-                  >
-                    {(providedDraggable) => (
-                      <div
-                        ref={providedDraggable.innerRef}
-                        {...providedDraggable.draggableProps}
-                        {...providedDraggable.dragHandleProps}
-                      >
-                        <MovieCard
-                          movie={movie}
-                          rank={idx + 1}
-                          icons={movie.isDefault && !icons.includes(insertIconName) ? [] : icons}
-                          setNotificationData={setNotificationData}
-                          handleInsert={handleInsert}
-                          handleDelete={handleDelete}
-                          toggleDrawer={toggleDrawer}
-                        />
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
+                {listOfMovies.length === 0 ? (
+                  <div className={classes.emptyMoviesContainer}>
+                    {isLoading ? <Loader /> : <NoResults />}
+                  </div>
+                ) : (
+                  listOfMovies.map((movie, idx) => (
+                    <Draggable
+                      isDragDisabled={!isDraggable}
+                      key={movie.id}
+                      index={idx}
+                      draggableId={String(movie.id)}
+                    >
+                      {(providedDraggable) => (
+                        <div
+                          ref={providedDraggable.innerRef}
+                          {...providedDraggable.draggableProps}
+                          {...providedDraggable.dragHandleProps}
+                        >
+                          <MovieCard
+                            movie={movie}
+                            rank={idx + 1}
+                            icons={movie.isDefault && !icons.includes(insertIconName) ? [] : icons}
+                            setNotificationData={setNotificationData}
+                            handleInsert={handleInsert}
+                            handleDelete={handleDelete}
+                            toggleDrawer={toggleDrawer}
+                          />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))
+                )}
                 {providedDroppable.placeholder}
               </div>
             )}
           </Droppable>
         </DragDropContext>
       </div>
+    </div>
+  );
+};
+
+const NoResults = () => {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.noResultsContainer}>
+      <img src={noResultsImg} alt="No results" width="150" height="75" />
+      <h4 className={classes.label}>No results</h4>
     </div>
   );
 };

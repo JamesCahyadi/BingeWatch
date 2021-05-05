@@ -14,7 +14,6 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "400px",
     margin: "auto",
     padding: "16px",
-    marginTop: "40px",
     boxShadow: "0 8px 6px -6px black",
     borderRadius: "4px",
   },

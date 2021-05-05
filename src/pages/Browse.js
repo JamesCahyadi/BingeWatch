@@ -7,6 +7,7 @@ import MovieList from "components/MovieList/MovieList";
 import Notification from "components/Notification";
 import useFetch from "hooks/useFetch";
 import useUser from "context/UserContext";
+import Loader from "components/Loader";
 
 const Browse = () => {
   const { user } = useUser();
@@ -39,7 +40,7 @@ const Browse = () => {
   return (
     <div>
       {error && error}
-      {isLoading && <div>Loading...</div>}
+      {isLoading && <Loader isCenterOnPage />}
       {data && (
         <>
           <MovieList

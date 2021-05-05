@@ -9,14 +9,12 @@ const ProfileCard = ({ username }) => {
   const classes = useStyles();
 
   return (
-    <div>
-      <Card>
-        <CardContent className={classes.cardContentContainer}>
-          <Avatar alt={username}>{username.charAt(0)}</Avatar>
-          <Typography>{username}</Typography>
-        </CardContent>
-      </Card>
-    </div>
+    <Card className={classes.cardContainer}>
+      <CardContent className={classes.cardContentContainer}>
+        <Avatar alt={username}>{username.charAt(0)}</Avatar>
+        <Typography>{username}</Typography>
+      </CardContent>
+    </Card>
   );
 };
 
