@@ -8,7 +8,7 @@ const {
 } = require("../constants/urls");
 const { insertFavouriteMovieQuery, getSingleFavouriteMovieQuery } = require("../constants/queries");
 const { createUrl } = require("../utils/urlHelpers");
-const { extractMovieIds, getFormattedMovies } = require("../utils/movies");
+const { extractMovieIds, getFormattedMovies } = require("../utils/movieHelpers");
 
 const router = express.Router();
 
@@ -39,10 +39,6 @@ router.get("/movies/:movieId/:userId", async (req, res) => {
   const { movieId, userId } = req.params;
   const { rows } = await db.query(getSingleFavouriteMovieQuery, [userId, movieId]);
   res.send(rows);
-});
-
-router.get("/movies/feed", async (req, res) => {
-  // const { rows }
 });
 
 router.put("/movies", async (req, res) => {

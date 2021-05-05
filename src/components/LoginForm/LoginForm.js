@@ -69,7 +69,6 @@ const LoginForm = () => {
     };
     const response = await fetch("/users", options);
     const data = await response.json();
-    console.log(data);
     if (response.ok) {
       localStorage.setItem(loginStorageKey, JSON.stringify(data));
       setUser(data);
@@ -119,6 +118,9 @@ const LoginForm = () => {
             {title === "Login" ? "Sign up" : "Login"}
           </Link>
         </div>
+        <h6 className={classes.attribution}>
+          This product uses the TMDb API but is not endorsed or certified by TMDb.
+        </h6>
       </form>
     </>
   );

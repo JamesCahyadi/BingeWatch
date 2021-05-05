@@ -5,7 +5,7 @@ const {
   updateFavouriteMoviesQuery,
   deleteFavouriteMovieQuery,
 } = require("../constants/queries");
-const { populateMovies, generateDefaultMovie } = require("../utils/movies");
+const { populateMovies, generateDefaultMovie } = require("../utils/movieHelpers");
 
 const router = express.Router();
 

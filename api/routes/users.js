@@ -1,9 +1,31 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const db = require("../db");
-const { insertUserQuery, getSingleUserQuery, getUsersQuery } = require("../constants/queries");
+const {
+  insertUserQuery,
+  getSingleUserQuery,
+  getUsersQuery,
+  getFeedQuery,
+  getFavouriteMoviesQuery,
+} = require("../constants/queries");
+const { populateMovies } = require("../utils/movieHelpers");
+const { extractUniqueUsers } = require("../utils/userHelpers");
 
 const router = express.Router();
+
+router.get("/users", async (req, res) => {
+  const { rows: feed } = await db.query(getFeedQuery);
+  const users = extractUniqueUsers(feed);
+
+  const feedPromises = users.map(async (user) => {
+    const { rows } = await db.query(getFavouriteMoviesQuery, [user.userId]);
+    const movies = await populateMovies(rows);
+    return { movies, username: user.username };
+  });
+
+  const feedInfo = await Promise.all(feedPromises);
+  res.send(feedInfo);
+});
 
 router.post("/users/login", async (req, res) => {
   const { username, password } = req.body;

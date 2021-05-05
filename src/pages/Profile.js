@@ -8,6 +8,7 @@ import useUser from "context/UserContext";
 
 const Profile = () => {
   const { user } = useUser();
+  console.log(user);
   const { data: movies, isLoading: isFetchLoading, error } = useFetch(`/profile/${user.id}`);
 
   if (isFetchLoading) {
@@ -18,15 +19,18 @@ const Profile = () => {
     return <div>Error</div>;
   }
 
+  console.log(movies);
   return (
     <div>
       <ProfileCard username={user.username} />
-      <MovieList
-        icons={movieCardIcons.favouriteIcons}
-        movies={movies}
-        title="Your Favourites"
-        isDraggable
-      />
+      {movies && (
+        <MovieList
+          icons={movieCardIcons.favouriteIcons}
+          movies={movies}
+          title="Your Favourites"
+          isDraggable
+        />
+      )}
     </div>
   );
 };

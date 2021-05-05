@@ -1,6 +1,8 @@
 import React from "react";
 import useFetch from "hooks/useFetch";
 import useUser from "context/UserContext";
+import MovieList from "components/MovieList";
+import { feedIcons } from "constants/movieCardIcons";
 
 const Feed = () => {
   const { user } = useUser();
@@ -14,10 +16,22 @@ const Feed = () => {
     return <div>Error</div>;
   }
 
+  console.log(data);
+
   return (
-    <div>
-      <div>ss</div>
-    </div>
+    <>
+      {data.map((feedInfo) => {
+        const displayName = user.username === feedInfo.username ? "Your" : `${feedInfo.username}'s`;
+
+        return (
+          <MovieList
+            movies={feedInfo.movies}
+            title={`${displayName} Favourites`}
+            icons={feedIcons}
+          />
+        );
+      })}
+    </>
   );
 };
 

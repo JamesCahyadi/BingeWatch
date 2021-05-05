@@ -25,6 +25,11 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "10px",
     padding: "5px",
   },
+  attribution: {
+    position: "fixed",
+    bottom: "0",
+    right: "10px",
+  },
 }));
 
 export default useStyles;
