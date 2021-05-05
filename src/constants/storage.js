@@ -1,1 +1,1 @@
-export const loginStorageKey = "user-info";
+export const LOGIN_STORAGE_KEY = "user-info";

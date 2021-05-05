@@ -7,9 +7,9 @@ const {
   TMDB_QUERY_SEARCH_URL,
 } = require("../constants/urls");
 const {
-  insertFavouriteMovieQuery,
-  getSingleFavouriteMovieQuery,
-  deleteFavouriteMovieBySortOrderQuery,
+  INSERT_FAVOURITE_MOVIES_QUERY,
+  GET_SINGLE_FAVOURITE_MOVIE_QUERY,
+  DELETE_FAVOURITE_MOVIES_BY_SORT_ORDER_QUERY,
 } = require("../constants/queries");
 const { createUrl } = require("../utils/urlHelpers");
 const { extractMovieIds, getFormattedMovies } = require("../utils/movieHelpers");
@@ -41,14 +41,14 @@ router.get("/movies/:query", async (req, res) => {
 
 router.get("/movies/:movieId/:userId", async (req, res) => {
   const { movieId, userId } = req.params;
-  const { rows } = await db.query(getSingleFavouriteMovieQuery, [userId, movieId]);
+  const { rows } = await db.query(GET_SINGLE_FAVOURITE_MOVIE_QUERY, [userId, movieId]);
   res.send(rows);
 });
 
 router.put("/movies", async (req, res) => {
   const { movieId, userId, sortOrder } = req.body;
-  await db.query(deleteFavouriteMovieBySortOrderQuery, [userId, sortOrder]);
-  await db.query(insertFavouriteMovieQuery, [userId, movieId, sortOrder]);
+  await db.query(DELETE_FAVOURITE_MOVIES_BY_SORT_ORDER_QUERY, [userId, sortOrder]);
+  await db.query(INSERT_FAVOURITE_MOVIES_QUERY, [userId, movieId, sortOrder]);
   const [newlyAddedMovie] = await getFormattedMovies([{ id: movieId }]);
   res.send(newlyAddedMovie);
 });

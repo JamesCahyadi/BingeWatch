@@ -2,7 +2,7 @@ import React from "react";
 import useFetch from "hooks/useFetch";
 import useUser from "context/UserContext";
 import MovieList from "components/MovieList";
-import { feedIcons } from "constants/movieCardIcons";
+import { FEED_ICONS } from "constants/movieCardIcons";
 import Loader from "components/Loader";
 
 const Feed = () => {
@@ -26,7 +26,7 @@ const Feed = () => {
           <MovieList
             movies={feedInfo.movies}
             title={`${displayName} Favourites`}
-            icons={feedIcons}
+            icons={FEED_ICONS}
           />
         );
       })}

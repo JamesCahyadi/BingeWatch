@@ -24,7 +24,7 @@ const Profile = () => {
       <ProfileCard username={user.username} />
       {movies && (
         <MovieList
-          icons={movieCardIcons.favouriteIcons}
+          icons={movieCardIcons.FAVOURITE_ICONS}
           movies={movies}
           title="Your Favourites"
           isDraggable

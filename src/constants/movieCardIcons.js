@@ -1,9 +1,9 @@
-export const imdbIconName = "imdb";
-export const deleteIconName = "delete";
-export const favouriteIconName = "favourite";
-export const insertIconName = "insert";
+export const IMDB_ICON_NAME = "imdb";
+export const DELETE_ICON_NAME = "delete";
+export const FAVOURITE_ICON_NAME = "favourite";
+export const INSERT_ICON_NAME = "insert";
 
-export const feedIcons = [imdbIconName];
-export const discoverIcons = [imdbIconName, favouriteIconName];
-export const favouriteIcons = [imdbIconName, deleteIconName];
-export const addToFavouriteIcons = [insertIconName];
+export const FEED_ICONS = [IMDB_ICON_NAME];
+export const BROWSE_ICONS = [IMDB_ICON_NAME, FAVOURITE_ICON_NAME];
+export const FAVOURITE_ICONS = [IMDB_ICON_NAME, DELETE_ICON_NAME];
+export const ADD_TO_FAVOURITES_ICONS = [INSERT_ICON_NAME];

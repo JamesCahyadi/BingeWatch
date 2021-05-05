@@ -55,30 +55,30 @@ const MovieCardIcons = ({
   };
 
   const iconList = {
-    [movieCardIcons.imdbIconName]: (
-      <Tooltip key={movieCardIcons.imdbIconName} title="View on IMDB" arrow>
+    [movieCardIcons.IMDB_ICON_NAME]: (
+      <Tooltip key={movieCardIcons.IMDB_ICON_NAME} title="View on IMDB" arrow>
         <IconButton href={getImdbUrl(movie.imdb_id)} target="_blank">
           <Avatar className={classes.movieCardIcon} variant="rounded" alt="imdb" src={imdbLogo} />
         </IconButton>
       </Tooltip>
     ),
-    [movieCardIcons.deleteIconName]: (
-      <Tooltip key={movieCardIcons.deleteIconName} title="Delete" arrow>
+    [movieCardIcons.DELETE_ICON_NAME]: (
+      <Tooltip key={movieCardIcons.DELETE_ICON_NAME} title="Delete" arrow>
         <IconButton onClick={() => handleDelete(movie.isDefault ? null : movie.id)}>
           <DeleteIcon className={classes.movieCardIcon} />
         </IconButton>
       </Tooltip>
     ),
-    [movieCardIcons.favouriteIconName]: (
-      <Tooltip key={movieCardIcons.favouriteIconName} title="Add to favourites" arrow>
+    [movieCardIcons.FAVOURITE_ICON_NAME]: (
+      <Tooltip key={movieCardIcons.FAVOURITE_ICON_NAME} title="Add to favourites" arrow>
         <IconButton onClick={handleAddToFavourites}>
           <FavoriteIcon className={classes.movieCardIcon} style={{ color: "#ffc0cb" }} />
         </IconButton>
       </Tooltip>
     ),
-    [movieCardIcons.insertIconName]: (
+    [movieCardIcons.INSERT_ICON_NAME]: (
       <Button
-        key={movieCardIcons.insertIconName}
+        key={movieCardIcons.INSERT_ICON_NAME}
         className={classes.insertButton}
         onClick={() => handleInsert(rank)}
         fullWidth

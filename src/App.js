@@ -7,13 +7,13 @@ import React, { useEffect } from "react";
 import PageContainer from "components/PageContainer";
 import Profile from "pages/Profile";
 import useUser from "context/UserContext";
-import { loginStorageKey } from "constants/storage";
+import { LOGIN_STORAGE_KEY } from "constants/storage";
 
 const App = () => {
   const { setUser } = useUser();
 
   useEffect(() => {
-    const userInfo = localStorage.getItem(loginStorageKey);
+    const userInfo = localStorage.getItem(LOGIN_STORAGE_KEY);
 
     if (userInfo) {
       setUser(JSON.parse(userInfo));

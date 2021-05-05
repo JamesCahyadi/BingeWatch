@@ -1,3 +1,3 @@
-export const colourRatingRange = [0, 7.0, 8.5];
-export const inputDebounceTime = 1000;
-export const notificationDurationTime = 5000;
+export const COLOUR_RATING_RANGE = [0, 7.0, 8.5];
+export const INPUT_DEBOUNCE_TIME = 1000;
+export const NOTIFICATION_DURATION_TIME = 5000;

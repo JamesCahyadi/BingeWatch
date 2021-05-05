@@ -16,7 +16,7 @@ const Browse = () => {
   const [recentlyClickedMovie, setRecentlyClickedMovie] = useState({});
   const [notificationData, setNotificationData] = useState({ status: "", text: "" });
   const { data: drawerMovies, setData: setDrawerMovies } = useFetch(`/profile/${user.id}`);
-  const { discoverIcons, addToFavouriteIcons } = movieCardIcons;
+  const { BROWSE_ICONS, ADD_TO_FAVOURITES_ICONS } = movieCardIcons;
 
   let dailyTrendingMoviesWithImdb;
   let weeklyTrendingMoviesWithImdb;
@@ -45,7 +45,7 @@ const Browse = () => {
             toggleDrawer={toggleDrawer}
             movies={[]}
             title="Search for movies"
-            icons={discoverIcons}
+            icons={BROWSE_ICONS}
             setNotificationData={setNotificationData}
             hasSearch
           />
@@ -53,14 +53,14 @@ const Browse = () => {
             toggleDrawer={toggleDrawer}
             movies={dailyTrendingMoviesWithImdb}
             title="Daily Trending"
-            icons={discoverIcons}
+            icons={BROWSE_ICONS}
             setNotificationData={setNotificationData}
           />
           <MovieList
             toggleDrawer={toggleDrawer}
             movies={weeklyTrendingMoviesWithImdb}
             title="Weekly Trending"
-            icons={discoverIcons}
+            icons={BROWSE_ICONS}
             setNotificationData={setNotificationData}
           />
           <Drawer anchor="bottom" open={isShowingDrawer} onClose={toggleDrawer}>
@@ -68,7 +68,7 @@ const Browse = () => {
               toggleDrawer={toggleDrawer}
               movies={drawerMovies}
               title="Current Favourites"
-              icons={addToFavouriteIcons}
+              icons={ADD_TO_FAVOURITES_ICONS}
               recentlyClickedMovie={recentlyClickedMovie}
               setNotificationData={setNotificationData}
             />

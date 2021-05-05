@@ -1,4 +1,4 @@
-import { loginStorageKey } from "constants/storage";
+import { LOGIN_STORAGE_KEY } from "constants/storage";
 import AccountCircleIcon from "@material-ui/icons/AccountCircleOutlined";
 import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
 import SearchIcon from "@material-ui/icons/Search";
@@ -37,7 +37,7 @@ const Navbar = () => {
   };
 
   const logout = () => {
-    localStorage.removeItem(loginStorageKey);
+    localStorage.removeItem(LOGIN_STORAGE_KEY);
     setUser({});
     goToHome();
   };

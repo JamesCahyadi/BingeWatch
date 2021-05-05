@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
-import { inputDebounceTime } from "constants/numbers";
-import { insertIconName } from "constants/movieCardIcons";
+import { INPUT_DEBOUNCE_TIME } from "constants/numbers";
+import { INSERT_ICON_NAME } from "constants/movieCardIcons";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import React, { useState, useRef, useEffect } from "react";
 
@@ -47,7 +47,7 @@ const MovieList = ({
             setListOfMovies(data);
             setIsLoading(false);
           });
-      }, inputDebounceTime);
+      }, INPUT_DEBOUNCE_TIME);
 
       return () => clearTimeout(delayDebounceFn);
     }
@@ -201,7 +201,9 @@ const MovieList = ({
                           <MovieCard
                             movie={movie}
                             rank={idx + 1}
-                            icons={movie.isDefault && !icons.includes(insertIconName) ? [] : icons}
+                            icons={
+                              movie.isDefault && !icons.includes(INSERT_ICON_NAME) ? [] : icons
+                            }
                             setNotificationData={setNotificationData}
                             handleInsert={handleInsert}
                             handleDelete={handleDelete}
