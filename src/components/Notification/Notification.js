@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { Alert } from "@material-ui/lab";
+import { notificationDurationTime } from "constants/numbers";
 import Snackbar from "@material-ui/core/Snackbar";
 import useStyles from "components/Notification/NotificationStyles";
 
@@ -27,7 +28,7 @@ const Notification = ({ notificationData, setNotificationData }) => {
       className={classes.snackbar}
       open={open}
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      autoHideDuration={5000}
+      autoHideDuration={notificationDurationTime}
       onClose={handleClose}
     >
       <Alert severity={notificationData.status}>{notificationData.text}</Alert>

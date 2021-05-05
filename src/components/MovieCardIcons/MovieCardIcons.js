@@ -26,8 +26,16 @@ const MovieCardIcons = ({
 
   const classes = useStyles();
   const { user } = useUser();
+  const isLoggedIn = !!user.username;
 
   const handleAddToFavourites = async () => {
+    if (!isLoggedIn) {
+      setNotificationData({
+        status: "error",
+        text: "You must login to track your favourite movies",
+      });
+    }
+
     const response = await fetch(`/movies/${movie.id}/${user.id}`);
     const [data] = await response.json();
     let sortOrder = null;

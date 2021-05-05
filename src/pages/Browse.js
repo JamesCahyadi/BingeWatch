@@ -15,9 +15,8 @@ const Browse = () => {
   const [isShowingDrawer, setIsShowingDrawer] = useState(false);
   const [recentlyClickedMovie, setRecentlyClickedMovie] = useState({});
   const [notificationData, setNotificationData] = useState({ status: "", text: "" });
-  const { data: drawerMovies, setData: setDrawerMovies, isLoading: isFetchLoading } = useFetch(
-    `/profile/${user.id}`,
-  );
+  const { data: drawerMovies, setData: setDrawerMovies } = useFetch(`/profile/${user.id}`);
+  const { discoverIcons, addToFavouriteIcons } = movieCardIcons;
 
   let dailyTrendingMoviesWithImdb;
   let weeklyTrendingMoviesWithImdb;
@@ -25,7 +24,6 @@ const Browse = () => {
     ({ dailyTrendingMoviesWithImdb } = data);
     ({ weeklyTrendingMoviesWithImdb } = data);
   }
-  const { discoverIcons, addToFavouriteIcons } = movieCardIcons;
 
   const toggleDrawer = (movie, newListOfMovies) => {
     if (movie) {
