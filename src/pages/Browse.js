@@ -1,6 +1,6 @@
 import * as movieCardIcons from "constants/movieCardIcons";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Drawer from "@material-ui/core/Drawer";
 import MovieList from "components/MovieList/MovieList";
@@ -8,14 +8,15 @@ import Notification from "components/Notification";
 import useFetch from "hooks/useFetch";
 import useUser from "context/UserContext";
 import Loader from "components/Loader";
+import PageInfoTitle from "components/PageInfoTitle";
 
 const Browse = () => {
   const { user } = useUser();
   const { data, isLoading, error } = useFetch("/movies");
   const [isShowingDrawer, setIsShowingDrawer] = useState(false);
   const [recentlyClickedMovie, setRecentlyClickedMovie] = useState({});
+  const [drawerMovies, setDrawerMovies] = useState([]);
   const [notificationData, setNotificationData] = useState({ status: "", text: "" });
-  const { data: drawerMovies, setData: setDrawerMovies } = useFetch(`/profile/${user.id}`);
   const { BROWSE_ICONS, ADD_TO_FAVOURITES_ICONS } = movieCardIcons;
 
   let dailyTrendingMoviesWithImdb;
@@ -35,12 +36,24 @@ const Browse = () => {
     setIsShowingDrawer(!isShowingDrawer);
   };
 
+  useEffect(() => {
+    if (user.username) {
+      fetch(`/profile/${user.id}`)
+        .then((response) => response.json())
+        .then((moviesData) => setDrawerMovies(moviesData));
+    }
+  }, [user.username]);
+
   return (
     <div>
       {error && error}
       {isLoading && <Loader isCenterOnPage />}
       {data && (
         <>
+          <PageInfoTitle
+            titleText="Browse"
+            tooltipText="Find movies to add to your list of favourites!"
+          />
           <MovieList
             toggleDrawer={toggleDrawer}
             movies={[]}

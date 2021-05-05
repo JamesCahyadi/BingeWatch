@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "8px",
   },
   noBackground: {
+    padding: "0",
     background: "none",
   },
 }));
