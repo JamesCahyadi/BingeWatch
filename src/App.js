@@ -1,13 +1,25 @@
 import { Redirect, Route, Switch } from "react-router-dom";
-
 import Browse from "pages/Browse";
 import Login from "pages/Login";
+import Feed from "pages/Feed";
 import Navbar from "components/Navbar";
+import React, { useEffect } from "react";
 import PageContainer from "components/PageContainer";
 import Profile from "pages/Profile";
-import React from "react";
+import useUser from "context/UserContext";
+import { loginStorageKey } from "constants/storage";
 
 const App = () => {
+  const { setUser } = useUser();
+
+  useEffect(() => {
+    const userInfo = localStorage.getItem(loginStorageKey);
+
+    if (userInfo) {
+      setUser(JSON.parse(userInfo));
+    }
+  }, []);
+
   return (
     <div>
       <Navbar />
@@ -23,6 +35,11 @@ const App = () => {
         <Route exact path="/movies">
           <PageContainer>
             <Browse />
+          </PageContainer>
+        </Route>
+        <Route exact path="/feed">
+          <PageContainer>
+            <Feed />
           </PageContainer>
         </Route>
         <Route exact path="/profile/:id">

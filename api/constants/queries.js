@@ -12,6 +12,9 @@ const insertUserQuery =
 const getSingleUserQuery = "SELECT id, password FROM users WHERE username = $1";
 const getUsersQuery = "SELECT username FROM users WHERE username ILIKE $1 || '%'";
 
+const getFeedQuery =
+  "SELECT fm.user_id, fm.id, fm.sort_order, u.username FROM favourite_movies fm INNER JOIN users u ON u.id = fm.user_id";
+
 module.exports = {
   getFavouriteMoviesQuery,
   updateFavouriteMoviesQuery,
@@ -21,4 +24,5 @@ module.exports = {
   insertUserQuery,
   getSingleUserQuery,
   getUsersQuery,
+  getFeedQuery,
 };

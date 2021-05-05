@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/no-unknown-property */
 import React, { useRef, useState } from "react";
+import { loginStorageKey } from "constants/storage";
 
 import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import Button from "@material-ui/core/Button";
@@ -48,6 +49,7 @@ const LoginForm = () => {
     const response = await fetch("/users/login", options);
     const data = await response.json();
     if (response.ok) {
+      localStorage.setItem(loginStorageKey, JSON.stringify(data));
       setUser(data);
       goToHome();
     } else {
@@ -58,7 +60,6 @@ const LoginForm = () => {
   const validateSignUp = async () => {
     const username = usernameRef.current.value;
     const password = passwordRef.current.value;
-
     const options = {
       method: "POST",
       headers: {
@@ -68,7 +69,9 @@ const LoginForm = () => {
     };
     const response = await fetch("/users", options);
     const data = await response.json();
+    console.log(data);
     if (response.ok) {
+      localStorage.setItem(loginStorageKey, JSON.stringify(data));
       setUser(data);
       goToHome();
     } else {

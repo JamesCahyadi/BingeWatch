@@ -1,4 +1,8 @@
+import { loginStorageKey } from "constants/storage";
 import AccountCircleIcon from "@material-ui/icons/AccountCircleOutlined";
+import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
+import SearchIcon from "@material-ui/icons/Search";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import AppBar from "@material-ui/core/AppBar";
 import IconButton from "@material-ui/core/IconButton";
 import React from "react";
@@ -18,6 +22,10 @@ const Navbar = () => {
     history.push(`/profile/${username}`);
   };
 
+  const goToFeed = () => {
+    history.push("/feed");
+  };
+
   const goToHome = () => {
     history.push("/");
   };
@@ -27,27 +35,57 @@ const Navbar = () => {
   };
 
   const logout = () => {
-    setUser(null);
+    localStorage.removeItem(loginStorageKey);
+    setUser({});
+    goToHome();
   };
 
   return (
     <AppBar position="static">
-      <Toolbar>
+      <Toolbar className={classes.navIconsContainer}>
         <IconButton className={classes.title} onClick={goToHome} color="secondary">
-          <Typography variant="h6">Navbar</Typography>
+          <Typography variant="h6">BingeWatch</Typography>
         </IconButton>
-        <IconButton
-          className={classes.profileIconContainer}
-          classes={{ label: classes.label }}
-          onClick={user ? goToProfile : goToLogin}
-          color="secondary"
-        >
-          <AccountCircleIcon className={classes.profileIcon} />
-          {user ? user.username : "Login"}
-        </IconButton>
-        <button type="button" onClick={() => logout({ returnTo: window.location.origin })}>
-          Logout
-        </button>
+        <div className={classes.mainNavIcons}>
+          <IconButton
+            className={classes.iconContainer}
+            classes={{ label: classes.label }}
+            onClick={goToHome}
+            color="secondary"
+          >
+            <SearchIcon className={classes.icon} />
+            Browse
+          </IconButton>
+          <IconButton
+            className={classes.iconContainer}
+            classes={{ label: classes.label }}
+            onClick={goToFeed}
+            color="secondary"
+          >
+            <PeopleAltIcon className={classes.icon} />
+            Feed
+          </IconButton>
+          <IconButton
+            className={classes.iconContainer}
+            classes={{ label: classes.label }}
+            onClick={user.username ? goToProfile : goToLogin}
+            color="secondary"
+          >
+            <AccountCircleIcon className={classes.icon} />
+            {user.username ? user.username : "Login"}
+          </IconButton>
+          {user.username && (
+            <IconButton
+              className={classes.iconContainer}
+              classes={{ label: classes.label }}
+              onClick={() => logout({ returnTo: window.location.origin })}
+              color="secondary"
+            >
+              <ExitToAppIcon className={classes.icon} />
+              Logout
+            </IconButton>
+          )}
+        </div>
       </Toolbar>
     </AppBar>
   );

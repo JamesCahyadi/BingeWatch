@@ -39,7 +39,7 @@ router.post("/users", async (req, res) => {
   const hash = await bcrypt.hash(password, saltRounds);
 
   const { rows: userInfo } = await db.query(insertUserQuery, [username, hash]);
-  const { id, username: newUserName } = userInfo;
+  const { id, username: newUserName } = userInfo[0];
   res.send({ id, username: newUserName });
 });
 

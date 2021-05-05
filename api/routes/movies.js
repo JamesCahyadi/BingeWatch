@@ -41,6 +41,10 @@ router.get("/movies/:movieId/:userId", async (req, res) => {
   res.send(rows);
 });
 
+router.get("/movies/feed", async (req, res) => {
+  // const { rows }
+});
+
 router.put("/movies", async (req, res) => {
   const { movieId, userId, sortOrder } = req.body;
   await db.query(insertFavouriteMovieQuery, [userId, movieId, sortOrder]);
