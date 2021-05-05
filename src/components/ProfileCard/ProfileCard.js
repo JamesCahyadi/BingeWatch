@@ -2,7 +2,6 @@ import Avatar from "@material-ui/core/Avatar";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import React from "react";
-import Typography from "@material-ui/core/Typography";
 import useStyles from "components/ProfileCard/ProfileCardStyles";
 
 const ProfileCard = ({ username }) => {
@@ -11,8 +10,12 @@ const ProfileCard = ({ username }) => {
   return (
     <Card className={classes.cardContainer}>
       <CardContent className={classes.cardContentContainer}>
-        <Avatar alt={username}>{username.charAt(0)}</Avatar>
-        <Typography>{username}</Typography>
+        <Avatar className={classes.avatar} alt={username}>
+          {username.charAt(0)}
+        </Avatar>
+        <h3>
+          {`Welcome to your profile ${username}! Drag and drop the posters to rearrange your favourites.`}
+        </h3>
       </CardContent>
     </Card>
   );

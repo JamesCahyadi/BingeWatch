@@ -5,21 +5,20 @@ import ProfileCard from "components/ProfileCard";
 import React from "react";
 import useFetch from "hooks/useFetch";
 import useUser from "context/UserContext";
+import Loader from "components/Loader";
 
 const Profile = () => {
   const { user } = useUser();
-  console.log(user);
   const { data: movies, isLoading: isFetchLoading, error } = useFetch(`/profile/${user.id}`);
 
   if (isFetchLoading) {
-    return <div>Loading ...</div>;
+    return <Loader isCenterOnPage />;
   }
 
   if (error) {
-    return <div>Error</div>;
+    return <div>{error}</div>;
   }
 
-  console.log(movies);
   return (
     <div>
       <ProfileCard username={user.username} />

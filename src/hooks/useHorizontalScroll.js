@@ -10,7 +10,7 @@ const useHorizontalScroll = () => {
         if (e.deltaY === 0) return;
         e.preventDefault();
         el.scrollTo({
-          left: el.scrollLeft + e.deltaY * 4,
+          left: el.scrollLeft + e.deltaY * 4.2,
           behavior: "smooth",
         });
       };

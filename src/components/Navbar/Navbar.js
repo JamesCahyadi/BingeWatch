@@ -75,7 +75,7 @@ const Navbar = () => {
             color="secondary"
           >
             <AccountCircleIcon className={classes.icon} />
-            {user.username ? user.username : "Login"}
+            {user.username ? "Me" : "Login"}
           </IconButton>
           {user.username && (
             <IconButton

@@ -26,7 +26,7 @@ router.patch("/profile/:id", async (req, res) => {
 
   try {
     await db.query(updateFavouriteMoviesQuery, [userId, movieId, sortOrder]);
-    res.send();
+    res.end();
   } catch (err) {
     res.send(err.message);
   }

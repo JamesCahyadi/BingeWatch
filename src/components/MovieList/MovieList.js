@@ -227,8 +227,8 @@ const NoResults = () => {
 
   return (
     <div className={classes.noResultsContainer}>
-      <img src={noResultsImg} alt="No results" width="150" height="75" />
-      <h4 className={classes.label}>No results</h4>
+      <img src={noResultsImg} alt="No Results" width="150" height="75" />
+      <h4 className={classes.label}>No Results</h4>
     </div>
   );
 };

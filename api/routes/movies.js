@@ -6,7 +6,11 @@ const {
   TMDB_WEEKLY_TRENDING_URL,
   TMDB_QUERY_SEARCH_URL,
 } = require("../constants/urls");
-const { insertFavouriteMovieQuery, getSingleFavouriteMovieQuery } = require("../constants/queries");
+const {
+  insertFavouriteMovieQuery,
+  getSingleFavouriteMovieQuery,
+  deleteFavouriteMovieBySortOrderQuery,
+} = require("../constants/queries");
 const { createUrl } = require("../utils/urlHelpers");
 const { extractMovieIds, getFormattedMovies } = require("../utils/movieHelpers");
 
@@ -43,6 +47,7 @@ router.get("/movies/:movieId/:userId", async (req, res) => {
 
 router.put("/movies", async (req, res) => {
   const { movieId, userId, sortOrder } = req.body;
+  await db.query(deleteFavouriteMovieBySortOrderQuery, [userId, sortOrder]);
   await db.query(insertFavouriteMovieQuery, [userId, movieId, sortOrder]);
   const [newlyAddedMovie] = await getFormattedMovies([{ id: movieId }]);
   res.send(newlyAddedMovie);
