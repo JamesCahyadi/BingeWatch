@@ -16,6 +16,14 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     color: "#FFFFFF",
   },
+  title: {
+    textTransform: "none",
+  },
+  logo: {
+    width: "32px",
+    height: "32px",
+    marginRight: "4px",
+  },
 }));
 
 export default useStyles;
