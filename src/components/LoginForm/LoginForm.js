@@ -94,7 +94,7 @@ const LoginForm = () => {
 
   return (
     <>
-      <Notification notificationData={notificationData} />
+      <Notification notificationData={notificationData} setNotificationData={setNotificationData} />
       <form onSubmit={(e) => handleSubmit(e)} className={classes.formContainer}>
         <InputField
           hasBackground
