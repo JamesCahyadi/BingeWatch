@@ -18,6 +18,7 @@ const Navbar = () => {
   const classes = useStyles();
   const history = useHistory();
   const { user, setUser } = useUser();
+  const isLoggedIn = !!user.username;
 
   const goToProfile = () => {
     const { username } = user;
@@ -50,47 +51,39 @@ const Navbar = () => {
           <Typography variant="h6">BingeWatch</Typography>
         </Button>
         <div className={classes.mainNavIcons}>
-          <IconButton
-            className={classes.iconContainer}
-            classes={{ label: classes.label }}
-            onClick={goToHome}
-            color="secondary"
-          >
-            <SearchIcon className={classes.icon} />
-            Browse
-          </IconButton>
-          <IconButton
-            className={classes.iconContainer}
-            classes={{ label: classes.label }}
-            onClick={goToFeed}
-            color="secondary"
-          >
-            <PeopleAltIcon className={classes.icon} />
-            Feed
-          </IconButton>
-          <IconButton
-            className={classes.iconContainer}
-            classes={{ label: classes.label }}
-            onClick={user.username ? goToProfile : goToLogin}
-            color="secondary"
-          >
-            <AccountCircleIcon className={classes.icon} />
-            {user.username ? "Me" : "Login"}
-          </IconButton>
-          {user.username && (
-            <IconButton
-              className={classes.iconContainer}
-              classes={{ label: classes.label }}
-              onClick={() => logout({ returnTo: window.location.origin })}
-              color="secondary"
-            >
-              <ExitToAppIcon className={classes.icon} />
-              Logout
-            </IconButton>
+          <NavBarIcon text="Browse" onClickFunc={goToHome} Icon={SearchIcon} />
+          <NavBarIcon text="Feed" onClickFunc={goToFeed} Icon={PeopleAltIcon} />
+          <NavBarIcon
+            text={isLoggedIn ? "Me" : "Login"}
+            onClickFunc={isLoggedIn ? goToProfile : goToLogin}
+            Icon={AccountCircleIcon}
+          />
+          {isLoggedIn && (
+            <NavBarIcon
+              text="Logout"
+              onClickFunc={() => logout({ returnTo: window.location.origin })}
+              Icon={ExitToAppIcon}
+            />
           )}
         </div>
       </Toolbar>
     </AppBar>
+  );
+};
+
+const NavBarIcon = ({ text, onClickFunc, Icon }) => {
+  const classes = useStyles();
+
+  return (
+    <IconButton
+      className={classes.iconContainer}
+      classes={{ label: classes.label }}
+      onClick={onClickFunc}
+      color="secondary"
+    >
+      <Icon className={classes.icon} />
+      {text}
+    </IconButton>
   );
 };
 

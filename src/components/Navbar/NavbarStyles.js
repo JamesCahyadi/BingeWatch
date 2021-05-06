@@ -27,6 +27,9 @@ const useStyles = makeStyles((theme) => ({
     height: "32px",
     marginRight: "4px",
   },
+  iconContainer: {
+    opacity: "0.8",
+  },
 }));
 
 export default useStyles;
