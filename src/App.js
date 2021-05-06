@@ -25,14 +25,14 @@ const App = () => {
       <Navbar />
       <Switch>
         <Route exact path="/">
-          <Redirect to="/movies" />
+          <Redirect to="/browse" />
         </Route>
         <Route exact path="/login">
           <PageContainer>
             <Login />
           </PageContainer>
         </Route>
-        <Route exact path="/movies">
+        <Route exact path="/browse">
           <PageContainer>
             <Browse />
           </PageContainer>
@@ -47,6 +47,7 @@ const App = () => {
             <Profile />
           </PageContainer>
         </Route>
+        <Route render={() => <Redirect to={{ pathname: "/" }} />} />
       </Switch>
     </div>
   );

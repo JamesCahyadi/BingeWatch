@@ -28,7 +28,10 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "4px",
   },
   iconContainer: {
-    opacity: "0.8",
+    opacity: "0.5",
+  },
+  iconSelected: {
+    opacity: "1",
   },
 }));
 

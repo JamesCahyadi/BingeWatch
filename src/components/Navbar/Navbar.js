@@ -9,10 +9,12 @@ import IconButton from "@material-ui/core/IconButton";
 import React from "react";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import useStyles from "components/Navbar/NavbarStyles";
 import useUser from "context/UserContext";
 import logo from "assets/logo.png";
+import { getCurrentPage } from "utils/urlHelpers";
+import { isStringEqual } from "utils/stringHelpers";
 
 const Navbar = () => {
   const classes = useStyles();
@@ -54,7 +56,7 @@ const Navbar = () => {
           <NavBarIcon text="Browse" onClickFunc={goToHome} Icon={SearchIcon} />
           <NavBarIcon text="Feed" onClickFunc={goToFeed} Icon={PeopleAltIcon} />
           <NavBarIcon
-            text={isLoggedIn ? "Me" : "Login"}
+            text={isLoggedIn ? "Profile" : "Login"}
             onClickFunc={isLoggedIn ? goToProfile : goToLogin}
             Icon={AccountCircleIcon}
           />
@@ -73,10 +75,13 @@ const Navbar = () => {
 
 const NavBarIcon = ({ text, onClickFunc, Icon }) => {
   const classes = useStyles();
+  const location = useLocation();
+  const curPageName = getCurrentPage(location);
+  const isCurPage = isStringEqual(text, curPageName);
 
   return (
     <IconButton
-      className={classes.iconContainer}
+      className={`${classes.iconContainer} ${isCurPage ? classes.iconSelected : ""}`}
       classes={{ label: classes.label }}
       onClick={onClickFunc}
       color="secondary"
