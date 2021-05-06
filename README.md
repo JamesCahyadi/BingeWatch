@@ -2,7 +2,7 @@
 
 Tired of not knowing what to watch? Tired of asking your friends and family what there favourite movies are? Well then, BingeWatch will be perfect for you!
 
-BingeWatch is a social media platform which allows people to view each other's favourite movies. 
+BingeWatch is a social media platform which allows people to view other people's favourite movies. 
 
 
 ### Featured Pages
