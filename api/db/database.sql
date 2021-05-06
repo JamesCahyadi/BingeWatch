@@ -1,4 +1,4 @@
--- to create these tables in heroku run "cat database.sql | heroku pg:psql -a the-binge-watch"
+-- to create these tables in heroku run "cat ./api/db/database.sql | heroku pg:psql -a the-binge-watch"
 
 create table users(
     id serial primary key,
