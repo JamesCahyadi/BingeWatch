@@ -1,4 +1,4 @@
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import Browse from "pages/Browse";
 import Login from "pages/Login";
 import Feed from "pages/Feed";
@@ -44,6 +44,7 @@ const App = () => {
             <Profile />
           </PageContainer>
         </Route>
+        <Route render={() => <Redirect to={{ pathname: "/" }} />} />
       </Switch>
     </div>
   );
