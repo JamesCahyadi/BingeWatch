@@ -1,4 +1,4 @@
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import Browse from "pages/Browse";
 import Login from "pages/Login";
 import Feed from "pages/Feed";
@@ -25,16 +25,13 @@ const App = () => {
       <Navbar />
       <Switch>
         <Route exact path="/">
-          <Redirect to="/browse" />
+          <PageContainer>
+            <Browse />
+          </PageContainer>
         </Route>
         <Route exact path="/login">
           <PageContainer>
             <Login />
-          </PageContainer>
-        </Route>
-        <Route exact path="/browse">
-          <PageContainer>
-            <Browse />
           </PageContainer>
         </Route>
         <Route exact path="/feed">
@@ -47,7 +44,6 @@ const App = () => {
             <Profile />
           </PageContainer>
         </Route>
-        <Route render={() => <Redirect to={{ pathname: "/" }} />} />
       </Switch>
     </div>
   );

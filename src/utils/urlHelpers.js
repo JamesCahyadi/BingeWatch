@@ -19,7 +19,7 @@ export const getImdbUrl = (imdbId) => urls.IMDB_MOVIE_URL + imdbId;
 
 export const getCurrentPage = (location) => {
   const url = location.pathname;
-  let page;
+  let page = pages.BROWSE;
 
   for (let i = 0; i < pages.ALL_PAGES.length; i++) {
     if (url.includes(pages.ALL_PAGES[i])) {

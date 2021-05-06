@@ -1,19 +1,19 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 const useRoutes = require("./api/routes");
 require("dotenv").config();
 
 const app = express();
+const PORT = process.env.PORT || 8080;
 
-// Middleware
+if (process.env.NODE_ENV === "production") {
+  app.use("/", express.static(path.join(__dirname, "build")));
+}
+
 app.use(cors());
 app.use(express.json());
 
-// Routes Middleware
 useRoutes(app);
 
-const { PORT } = process.env;
-
-app.listen(PORT, () => {
-  console.log("Example app listening at localhost", PORT);
-});
+app.listen(PORT);
