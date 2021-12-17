@@ -8,8 +8,6 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 
 app.use(express.static(path.join(__dirname, "build")));
-if (process.env.NODE_ENV === "production") {
-}
 
 app.use(cors());
 app.use(express.json());
