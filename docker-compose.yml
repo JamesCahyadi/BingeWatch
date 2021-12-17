@@ -1,0 +1,18 @@
+version: "3"
+services:
+  node-app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=$PORT
+      - TMDB_KEY=$TMDB_KEY
+    depends_on:
+      - postgres
+      
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_USER=$PG_USER
+      - POSTGRES_PASSWORD=$PG_PASSWORD
+      - POSTGRES_DB=$PG_DATABASE
